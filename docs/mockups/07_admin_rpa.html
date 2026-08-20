@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>MediLogic - RPA carga masiva (mockup)</title>
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+
+<div class="topbar">
+  <a class="brand" href="01_inicio.html"><span class="logo-dot"></span> MediLogic</a>
+  <div class="nav-links">
+    <span style="font-size:0.85rem;color:var(--color-text-muted);">Sesión: admin</span>
+    <a href="01_inicio.html">Cerrar sesión</a>
+  </div>
+</div>
+
+<p class="mockup-note">
+  Mockup estático — automatización RPA (backend, Python) que carga enfermedades desde un
+  archivo JSON como <code>EjemploRPA.json</code> y las clasifica automáticamente por
+  sistema del cuerpo / tipo (sección 4.2 del enunciado).
+</p>
+
+<div class="layout">
+  <div class="sidebar">
+    <a href="05_admin_dashboard.html">Panel general</a>
+    <a href="06_admin_enfermedades.html">Enfermedades</a>
+    <a href="06_admin_enfermedades.html">Síntomas</a>
+    <a href="06_admin_enfermedades.html">Medicamentos</a>
+    <a href="06_admin_enfermedades.html">Contraindicaciones</a>
+    <a href="07_admin_rpa.html" class="active">RPA — Carga masiva</a>
+    <a href="06_admin_enfermedades.html">Exportar archivo .pl</a>
+  </div>
+
+  <div class="main">
+    <h2 class="page-title">RPA — Carga masiva de enfermedades</h2>
+    <p class="page-subtitle">Sube un archivo JSON con el formato de <code>EjemploRPA.json</code> y el robot completará el alta por ti.</p>
+
+    <div class="card">
+      <h3>1. Archivo de origen</h3>
+      <input type="file" accept=".json">
+      <p style="font-size:0.8rem;color:var(--color-text-muted);">
+        Campos esperados: nombre_enfermedad, descripcion, sintomas_asociados, medicamentos_contraindicados, sistema_cuerpo.
+      </p>
+      <a href="#" class="btn btn-primary" style="margin-top:8px;">▶ Ejecutar RPA de carga</a>
+    </div>
+
+    <div class="card">
+      <h3>2. Ejecución (bitácora en vivo)</h3>
+      <div class="log-box">[10:15:01] Iniciando RPA de carga de enfermedades...
+[10:15:01] Archivo detectado: EjemploRPA.json (4 registros)
+[10:15:02] Procesando "Hipertension"...
+[10:15:02]   -> Clasificada como sistema: circulatorio / tipo: cronico
+[10:15:02]   -> Formulario completado y enfermedad creada.
+[10:15:03] Procesando "Asma_Bronquial"...
+[10:15:03]   -> Clasificada como sistema: respiratorio / tipo: cronico
+[10:15:03]   -> Formulario completado y enfermedad creada.
+[10:15:04] Procesando "Diabetes_Tipo_2"...
+[10:15:04]   -> Clasificada como sistema: endocrino / tipo: cronico
+[10:15:04]   -> Formulario completado y enfermedad creada.
+[10:15:05] Procesando "Gastroenteritis_Aguda"...
+[10:15:05]   -> Clasificada como sistema: digestivo / tipo: viral
+[10:15:05]   -> Formulario completado y enfermedad creada.
+[10:15:05] knowledge_base.pl actualizado y recargado (consult/1).
+[10:15:05] RPA finalizado: 4 enfermedades creadas, 0 errores.</div>
+    </div>
+
+    <div class="card">
+      <h3>3. Bitácora generada (texto plano)</h3>
+      <p style="font-size:0.85rem;">
+        <code>reportes/rpa_carga_20260820_101505.txt</code> — resumen de la carga, disponible para descarga y consulta posterior.
+      </p>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

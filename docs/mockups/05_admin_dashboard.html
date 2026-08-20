@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>MediLogic - Panel administrador (mockup)</title>
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+
+<div class="topbar">
+  <a class="brand" href="01_inicio.html"><span class="logo-dot"></span> MediLogic</a>
+  <div class="nav-links">
+    <span style="font-size:0.85rem;color:var(--color-text-muted);">Sesión: admin</span>
+    <a href="01_inicio.html">Cerrar sesión</a>
+  </div>
+</div>
+
+<p class="mockup-note">
+  Mockup estático — panel de control del administrador (sección 4.2 del enunciado).
+</p>
+
+<div class="layout">
+  <div class="sidebar">
+    <a href="05_admin_dashboard.html" class="active">Panel general</a>
+    <a href="06_admin_enfermedades.html">Enfermedades</a>
+    <a href="06_admin_enfermedades.html">Síntomas</a>
+    <a href="06_admin_enfermedades.html">Medicamentos</a>
+    <a href="06_admin_enfermedades.html">Contraindicaciones</a>
+    <a href="07_admin_rpa.html">RPA — Carga masiva</a>
+    <a href="06_admin_enfermedades.html">Exportar archivo .pl</a>
+  </div>
+
+  <div class="main">
+    <h2 class="page-title">Panel general</h2>
+    <p class="page-subtitle">Estado actual de la base de conocimiento.</p>
+
+    <div class="stat-grid">
+      <div class="stat-card"><div class="value">4</div><div class="label">Enfermedades registradas</div></div>
+      <div class="stat-card"><div class="value">12</div><div class="label">Síntomas registrados</div></div>
+      <div class="stat-card"><div class="value">7</div><div class="label">Medicamentos registrados</div></div>
+      <div class="stat-card"><div class="value">20/08 10:15</div><div class="label">Última actualización del .pl</div></div>
+    </div>
+
+    <div class="card">
+      <h3>Actividad reciente</h3>
+      <table>
+        <tr><th>Fecha</th><th>Acción</th><th>Origen</th></tr>
+        <tr><td>20/08 10:15</td><td>Enfermedad "Gastroenteritis_Aguda" creada</td><td>RPA</td></tr>
+        <tr><td>20/08 10:15</td><td>Enfermedad "Diabetes_Tipo_2" creada</td><td>RPA</td></tr>
+        <tr><td>19/08 18:02</td><td>Medicamento "Losartán" actualizado</td><td>Manual</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

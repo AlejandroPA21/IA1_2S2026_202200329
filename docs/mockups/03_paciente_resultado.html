@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>MediLogic - Informe de diagnóstico (mockup)</title>
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+
+<div class="topbar">
+  <a class="brand" href="01_inicio.html"><span class="logo-dot"></span> MediLogic</a>
+  <div class="nav-links">
+    <a href="02_paciente_formulario.html">Nuevo diagnóstico</a>
+    <a href="03_paciente_resultado.html" class="active">Resultado / Historial</a>
+    <a href="01_inicio.html">Salir</a>
+  </div>
+</div>
+
+<p class="mockup-note">
+  Mockup estático — datos de ejemplo tomados de <code>EjemploRPA.json</code>. El porcentaje
+  de afinidad se calcula en Prolog según la ponderación por severidad definida en la
+  sección 4.2 del enunciado (leve=1, moderado=2, severo=3).
+</p>
+
+<div class="main" style="max-width:900px;margin:0 auto;">
+  <div style="display:flex;justify-content:space-between;align-items:center;">
+    <div>
+      <h2 class="page-title">Informe de diagnóstico</h2>
+      <p class="page-subtitle">Generado el 20/08/2026 — 3 posibles diagnósticos encontrados</p>
+    </div>
+    <a href="#" class="btn btn-secondary">⬇ Descargar informe en PDF</a>
+  </div>
+
+  <!-- Diagnóstico 1: alta afinidad / urgencia -->
+  <div class="card">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+      <div>
+        <h3 style="margin-bottom:4px;">1. Hipertensión <span class="badge badge-neutral">circulatorio</span></h3>
+        <span class="badge badge-danger">Consulta médica inmediata sugerida</span>
+      </div>
+      <strong style="font-size:1.3rem;color:var(--color-primary-dark);">66%</strong>
+    </div>
+    <div class="affinity-bar"><span style="width:66%;"></span></div>
+    <p style="font-size:0.9rem;">
+      <strong>Medicamento sugerido:</strong> Losartán
+      <span class="badge badge-warning">Ibuprofeno excluido por contraindicación (hipertensión)</span>
+    </p>
+    <div class="rules-box">
+      <code>afinidad(hipertension, 66) :- sintomas_coincidentes([dolor_cabeza-moderado, mareo-severo]).</code>
+      <code>contraindicado(ibuprofeno, hipertension).</code>
+      <code>urgencia(hipertension, alta) :- afinidad(hipertension, A), A >= 60.</code>
+    </div>
+  </div>
+
+  <!-- Diagnóstico 2: moderado -->
+  <div class="card">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+      <div>
+        <h3 style="margin-bottom:4px;">2. Diabetes Tipo 2 <span class="badge badge-neutral">endocrino</span></h3>
+        <span class="badge badge-warning">Posible automanejo</span>
+      </div>
+      <strong style="font-size:1.3rem;color:var(--color-primary-dark);">33%</strong>
+    </div>
+    <div class="affinity-bar"><span style="width:33%;"></span></div>
+    <p style="font-size:0.9rem;"><strong>Medicamento sugerido:</strong> Metformina</p>
+    <div class="rules-box">
+      <code>afinidad(diabetes_tipo_2, 33) :- sintomas_coincidentes([vision_borrosa-leve]).</code>
+      <code>urgencia(diabetes_tipo_2, media) :- afinidad(diabetes_tipo_2, A), A >= 20, A < 60.</code>
+    </div>
+  </div>
+
+  <!-- Diagnóstico 3: bajo -->
+  <div class="card">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+      <div>
+        <h3 style="margin-bottom:4px;">3. Gastroenteritis Aguda <span class="badge badge-neutral">digestivo</span></h3>
+        <span class="badge badge-safe">Observación recomendada</span>
+      </div>
+      <strong style="font-size:1.3rem;color:var(--color-primary-dark);">10%</strong>
+    </div>
+    <div class="affinity-bar"><span style="width:10%;"></span></div>
+    <p style="font-size:0.9rem;"><strong>Medicamento sugerido:</strong> Suero oral</p>
+    <div class="rules-box">
+      <code>afinidad(gastroenteritis_aguda, 10) :- sintomas_coincidentes([dolor_cabeza-leve]).</code>
+      <code>urgencia(gastroenteritis_aguda, baja) :- afinidad(gastroenteritis_aguda, A), A < 20.</code>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Historial de esta sesión</h3>
+    <table>
+      <tr><th>Hora</th><th>Diagnóstico principal</th><th>Afinidad</th><th></th></tr>
+      <tr><td>10:42</td><td>Hipertensión</td><td>66%</td><td><a href="#">Ver</a></td></tr>
+      <tr><td>09:15</td><td>Gastroenteritis Aguda</td><td>25%</td><td><a href="#">Ver</a></td></tr>
+    </table>
+    <p style="font-size:0.8rem;color:var(--color-text-muted);margin-bottom:0;">
+      Historial temporal, almacenado solo durante la sesión activa del navegador.
+    </p>
+  </div>
+</div>
+
+<footer class="site-footer">MediLogic — Informe generado por el motor de inferencia en Prolog</footer>
+
+</body>
+</html>

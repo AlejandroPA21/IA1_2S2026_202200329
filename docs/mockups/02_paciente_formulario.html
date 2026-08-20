@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>MediLogic - Formulario de paciente (mockup)</title>
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+
+<div class="topbar">
+  <a class="brand" href="01_inicio.html"><span class="logo-dot"></span> MediLogic</a>
+  <div class="nav-links">
+    <a href="02_paciente_formulario.html" class="active">Diagnóstico</a>
+    <a href="03_paciente_resultado.html">Resultado / Historial</a>
+    <a href="01_inicio.html">Salir</a>
+  </div>
+</div>
+<div class="disclaimer-bar">Herramienta de orientación preliminar — no sustituye la consulta médica profesional.</div>
+
+<p class="mockup-note">
+  Mockup estático — los catálogos de síntomas, alergias y enfermedades crónicas se cargan
+  dinámicamente desde la base de conocimiento (registrada por el administrador), tal como
+  exige la sección 4.2 del enunciado. Los valores mostrados aquí son de ejemplo.
+</p>
+
+<div class="main" style="max-width:900px;margin:0 auto;">
+  <h2 class="page-title">Formulario de ingreso clínico</h2>
+  <p class="page-subtitle">Selecciona tus síntomas, alergias y antecedentes para generar tu informe.</p>
+
+  <div class="card">
+    <h3>1. Síntomas actuales y severidad</h3>
+    <div class="check-row">
+      <label><input type="checkbox" checked> Dolor de cabeza</label>
+      <select><option>Leve</option><option selected>Moderado</option><option>Severo</option></select>
+    </div>
+    <div class="check-row">
+      <label><input type="checkbox" checked> Mareo</label>
+      <select><option>Leve</option><option>Moderado</option><option selected>Severo</option></select>
+    </div>
+    <div class="check-row">
+      <label><input type="checkbox"> Visión borrosa</label>
+      <select disabled><option>Leve</option><option>Moderado</option><option>Severo</option></select>
+    </div>
+    <div class="check-row">
+      <label><input type="checkbox"> Fatiga</label>
+      <select disabled><option>Leve</option><option>Moderado</option><option>Severo</option></select>
+    </div>
+    <div class="check-row">
+      <label><input type="checkbox"> Dificultad respiratoria</label>
+      <select disabled><option>Leve</option><option>Moderado</option><option>Severo</option></select>
+    </div>
+    <div class="check-row">
+      <label><input type="checkbox"> Tos seca</label>
+      <select disabled><option>Leve</option><option>Moderado</option><option>Severo</option></select>
+    </div>
+  </div>
+
+  <div class="form-grid">
+    <div class="card">
+      <h3>2. Alergias a medicamentos</h3>
+      <div class="check-row"><label><input type="checkbox" checked> Ibuprofeno</label></div>
+      <div class="check-row"><label><input type="checkbox"> Aspirina</label></div>
+      <div class="check-row"><label><input type="checkbox"> Corticosteroides</label></div>
+      <div class="check-row"><label><input type="checkbox"> Descongestivos</label></div>
+      <div class="check-row"><label><input type="checkbox"> Betabloqueantes</label></div>
+      <p style="font-size:0.8rem;color:var(--color-text-muted);margin-bottom:0;">
+        Catálogo cargado dinámicamente desde los medicamentos registrados por el administrador.
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>3. Enfermedades crónicas / antecedentes</h3>
+      <div class="check-row"><label><input type="checkbox" checked> Hipertensión</label></div>
+      <div class="check-row"><label><input type="checkbox"> Diabetes Tipo 2</label></div>
+      <div class="check-row"><label><input type="checkbox"> Asma Bronquial</label></div>
+      <p style="font-size:0.8rem;color:var(--color-text-muted);margin-bottom:0;">
+        Catálogo cargado dinámicamente desde las enfermedades registradas en el sistema.
+      </p>
+    </div>
+  </div>
+
+  <div style="text-align:right;">
+    <a href="03_paciente_resultado.html" class="btn btn-primary btn-lg">Solicitar análisis</a>
+  </div>
+</div>
+
+<footer class="site-footer">MediLogic — Módulo de Paciente</footer>
+
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>MediLogic - Gestión de enfermedades (mockup)</title>
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+
+<div class="topbar">
+  <a class="brand" href="01_inicio.html"><span class="logo-dot"></span> MediLogic</a>
+  <div class="nav-links">
+    <span style="font-size:0.85rem;color:var(--color-text-muted);">Sesión: admin</span>
+    <a href="01_inicio.html">Cerrar sesión</a>
+  </div>
+</div>
+
+<p class="mockup-note">
+  Mockup estático — CRUD de enfermedades. El mismo patrón (tabla + formulario) se reutiliza
+  para síntomas, medicamentos y contraindicaciones. Todo cambio guardado aquí reescribe
+  <code>src/prolog/knowledge_base.pl</code> y recarga el motor (sección 4.2 del enunciado).
+</p>
+
+<div class="layout">
+  <div class="sidebar">
+    <a href="05_admin_dashboard.html">Panel general</a>
+    <a href="06_admin_enfermedades.html" class="active">Enfermedades</a>
+    <a href="06_admin_enfermedades.html">Síntomas</a>
+    <a href="06_admin_enfermedades.html">Medicamentos</a>
+    <a href="06_admin_enfermedades.html">Contraindicaciones</a>
+    <a href="07_admin_rpa.html">RPA — Carga masiva</a>
+    <a href="06_admin_enfermedades.html">Exportar archivo .pl</a>
+  </div>
+
+  <div class="main">
+    <div style="display:flex;justify-content:space-between;align-items:center;">
+      <div>
+        <h2 class="page-title">Enfermedades</h2>
+        <p class="page-subtitle">Gestiona el catálogo de enfermedades y su clasificación.</p>
+      </div>
+      <a href="#formulario" class="btn btn-primary">+ Nueva enfermedad</a>
+    </div>
+
+    <div class="card">
+      <table>
+        <tr><th>Nombre</th><th>Sistema del cuerpo</th><th>Tipo</th><th>Síntomas</th><th>Acciones</th></tr>
+        <tr><td>Hipertensión</td><td>Circulatorio</td><td>Crónico</td><td>3</td><td><a href="#">Editar</a> · <a href="#">Eliminar</a></td></tr>
+        <tr><td>Asma Bronquial</td><td>Respiratorio</td><td>Crónico</td><td>3</td><td><a href="#">Editar</a> · <a href="#">Eliminar</a></td></tr>
+        <tr><td>Diabetes Tipo 2</td><td>Endocrino</td><td>Crónico</td><td>3</td><td><a href="#">Editar</a> · <a href="#">Eliminar</a></td></tr>
+        <tr><td>Gastroenteritis Aguda</td><td>Digestivo</td><td>Viral</td><td>4</td><td><a href="#">Editar</a> · <a href="#">Eliminar</a></td></tr>
+      </table>
+    </div>
+
+    <div class="card" id="formulario">
+      <h3>Nueva / editar enfermedad</h3>
+      <div class="form-grid">
+        <label style="font-size:0.85rem;">Nombre
+          <input type="text" style="width:100%;margin-top:4px;" placeholder="Ej. Migraña_Cronica">
+        </label>
+        <label style="font-size:0.85rem;">Sistema del cuerpo
+          <select style="width:100%;margin-top:4px;">
+            <option>Circulatorio</option><option>Respiratorio</option><option>Digestivo</option>
+            <option>Endocrino</option><option>Inmunológico</option><option>Neurológico</option>
+          </select>
+        </label>
+        <label style="font-size:0.85rem;">Tipo
+          <select style="width:100%;margin-top:4px;">
+            <option>Crónico</option><option>Viral</option><option>Inmunológico</option><option>Bacteriano</option>
+          </select>
+        </label>
+        <label style="font-size:0.85rem;">Descripción
+          <input type="text" style="width:100%;margin-top:4px;" placeholder="Descripción breve">
+        </label>
+      </div>
+      <div class="form-grid" style="margin-top:16px;">
+        <div>
+          <p style="font-size:0.85rem;margin-bottom:6px;"><strong>Síntomas asociados</strong></p>
+          <div class="check-row"><label><input type="checkbox" checked> Dolor de cabeza</label></div>
+          <div class="check-row"><label><input type="checkbox" checked> Mareo</label></div>
+          <div class="check-row"><label><input type="checkbox"> Visión borrosa</label></div>
+        </div>
+        <div>
+          <p style="font-size:0.85rem;margin-bottom:6px;"><strong>Medicamentos contraindicados</strong></p>
+          <div class="check-row"><label><input type="checkbox" checked> Ibuprofeno</label></div>
+          <div class="check-row"><label><input type="checkbox"> Descongestivos</label></div>
+        </div>
+      </div>
+      <div style="text-align:right;margin-top:16px;">
+        <a href="06_admin_enfermedades.html" class="btn btn-primary">Guardar (actualiza knowledge_base.pl)</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
