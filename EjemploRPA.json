@@ -1,0 +1,57 @@
+[
+  {
+    "nombre_enfermedad": "Hipertension",
+    "descripcion": "Presion arterial alta cronica que afecta el sistema circulatorio.",
+    "sintomas_asociados": [
+      "dolor_cabeza",
+      "mareo",
+      "vision_borrosa"
+    ],
+    "medicamentos_contraindicados": [
+      "ibuprofeno",
+      "descongestivos"
+    ],
+    "sistema_cuerpo": "circulatorio"
+  },
+  {
+    "nombre_enfermedad": "Asma_Bronquial",
+    "descripcion": "Enfermedad respiratoria cronica caracterizada por la inflamacion de las vias aereas.",
+    "sintomas_asociados": [
+      "dificultad_respiratoria",
+      "silbido_pecho",
+      "tos_seca"
+    ],
+    "medicamentos_contraindicados": [
+      "aspirina",
+      "betabloqueantes"
+    ],
+    "sistema_cuerpo": "respiratorio"
+  },
+  {
+    "nombre_enfermedad": "Diabetes_Tipo_2",
+    "descripcion": "Trastorno metabolico caracterizado por niveles elevados de glucosa en sangre.",
+    "sintomas_asociados": [
+      "sed_excessiva",
+      "fatiga",
+      "vision_borrosa"
+    ],
+    "medicamentos_contraindicados": [
+      "corticosteroides"
+    ],
+    "sistema_cuerpo": "endocrino"
+  },
+  {
+    "nombre_enfermedad": "Gastroenteritis_Aguda",
+    "descripcion": "Inflamacion de la membrana interna del intestino causada por infecciones.",
+    "sintomas_asociados": [
+      "dolor_abdominal",
+      "nauseas",
+      "diarrea",
+      "fiebre_leve"
+    ],
+    "medicamentos_contraindicados": [
+      "anti_inflamatorios_no_esteroideos"
+    ],
+    "sistema_cuerpo": "digestivo"
+  }
+]

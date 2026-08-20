@@ -1,0 +1,15 @@
+# --- Backend web ---
+Flask>=3.0,<4.0
+python-dotenv>=1.0
+
+# --- Motor logico (Prolog embebido en Python) ---
+pyswip>=0.3.2
+
+# --- RPA (automatizacion del modulo administrador) ---
+PyAutoGUI>=0.9.54
+
+# --- Generacion de reportes en PDF ---
+reportlab>=4.0
+
+# --- Pruebas ---
+pytest>=8.0

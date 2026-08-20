@@ -1,0 +1,40 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# --- Entornos virtuales ---
+.venv/
+venv/
+env/
+ENV/
+
+# --- Variables de entorno / secretos ---
+.env
+*.env.local
+
+# --- SWI-Prolog compilado ---
+*.qlf
+
+# --- Reportes/artefactos generados en tiempo de ejecucion (no versionar) ---
+/output/
+/generated_reports/
+*.log
+
+# --- Herramientas y cache ---
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+htmlcov/
+.coverage
+
+# --- Sistema operativo / editor ---
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/extensions.json
+.idea/
