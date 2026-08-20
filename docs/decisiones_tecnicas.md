@@ -79,6 +79,47 @@ se pide una base de datos relacional aparte). Por lo tanto, el backend reescribi
 directamente `src/prolog/knowledge_base.pl` como mecanismo único de persistencia, sin
 introducir una base de datos adicional, evitando duplicar la fuente de verdad.
 
+## 8. Interpretación del "total máximo posible" en el cálculo de afinidad
+
+El enunciado (sección 4.2) pide que la afinidad sea "una proporción entre los puntos
+acumulados por los síntomas coincidentes del usuario y el total máximo posible de los
+síntomas definidos para dicha enfermedad", sin especificar exactamente qué es ese máximo.
+Se definió como: *la cantidad de síntomas asociados a la enfermedad, multiplicada por el
+peso del nivel "severo" (3)*, es decir, el escenario en el que el paciente presentara todos
+los síntomas de esa enfermedad en su grado más alto. Es la única interpretación que hace que
+100% de afinidad sea alcanzable y tenga sentido clínico. Implementado en
+`puntos_maximos_enfermedad/2` dentro de `src/prolog/knowledge_base.pl`.
+
+## 9. Umbrales de nivel de urgencia
+
+El enunciado exige un nivel de urgencia con frases como "Consulta médica inmediata
+sugerida", "Posible automanejo" u "Observación recomendada", pero no fija los cortes
+numéricos. Se definieron los siguientes umbrales sobre el porcentaje de afinidad, por ser
+proporcionales y fáciles de justificar ante el catedrático:
+
+| Rango de afinidad | Nivel  | Recomendación |
+|---|---|---|
+| ≥ 60% | Alta  | Consulta médica inmediata sugerida |
+| 20% – 59% | Media | Posible automanejo |
+| < 20% | Baja  | Observación recomendada |
+
+Implementado en `nivel_urgencia/3`. Estos umbrales podrán ajustarse en la Entrega No. 2 si,
+al probar más casos clínicos, se determina que otro corte refleja mejor la realidad.
+
+## 10. Validación del archivo .pl
+
+El archivo `src/prolog/knowledge_base.pl` fue probado de dos formas antes de darse por
+terminado como entregable:
+
+1. Directamente con `swipl` (instalado vía `winget install SWI-Prolog.SWI-Prolog`),
+   ejecutando 9 consultas de prueba que cubren cálculo de afinidad, nivel de urgencia,
+   sustitución de medicamento por alergia y por enfermedad crónica, orden de diagnósticos,
+   catálogos derivados (`alergia/1`, `enfermedad_cronica/1`) y exclusión correcta de
+   enfermedades sin síntomas coincidentes. Los 9 casos pasaron.
+2. A través de `pyswip` (la librería que usará el backend real), confirmando que
+   `Prolog().consult(...)` y las consultas `afinidad/3` e `informe/4` funcionan igual desde
+   Python que desde la consola de SWI-Prolog.
+
 ---
 *Este documento se irá actualizando conforme surjan nuevas decisiones técnicas durante el
 desarrollo del proyecto.*

@@ -73,6 +73,16 @@ python src/backend/app.py
 > Requiere tener instalado [SWI-Prolog](https://www.swi-prolog.org/) en el sistema para
 > que `pyswip` pueda comunicarse con el motor lógico.
 
+## Pruebas
+
+```bash
+pytest
+```
+
+La base de conocimiento (`src/prolog/knowledge_base.pl`) fue validada manualmente con
+consultas de ejemplo tanto desde `swipl` como desde `pyswip`; ver
+[docs/decisiones_tecnicas.md](docs/decisiones_tecnicas.md#10-validación-del-archivo-pl).
+
 ## Licencia
 
 Este proyecto se distribuye bajo la licencia MIT. Ver [LICENSE](LICENSE).
