@@ -29,10 +29,11 @@ Ver [ENUNCIADO.md](ENUNCIADO.md) para el enunciado completo del proyecto.
 ├── requirements.txt          # Dependencias de Python
 ├── docs/
 │   ├── decisiones_tecnicas.md    # Bitácora de decisiones técnicas y su justificación
-│   ├── manual_tecnico/           # Manual técnico (arquitectura, reglas Prolog, RPA)
+│   ├── guia_informe_prolog.md    # Guía de qué correr/capturar para el PDF de evidencia Prolog
+│   ├── manual_tecnico/           # Manual técnico (borrador en Entrega No. 1)
 │   ├── manual_usuario/           # Manual de usuario (paciente y administrador)
-│   ├── mockups/                  # Diseño de interfaz / wireframes
-│   ├── diagramas/                # Diagramas de arquitectura y flujo
+│   ├── mockups/                  # Diseño de interfaz / wireframes navegables
+│   ├── diagramas/                # Diagramas de arquitectura y flujo (Mermaid)
 │   └── evaluacion_coherencia/    # Casos clínicos y reflexión crítica IA simbólica vs. moderna
 ├── src/
 │   ├── prolog/
@@ -43,6 +44,9 @@ Ver [ENUNCIADO.md](ENUNCIADO.md) para el enunciado completo del proyecto.
 │   │   └── routes/               # Blueprints: paciente y administrador
 │   └── rpa/
 │       └── admin_rpa.py          # Automatización de carga de enfermedades
+├── scripts/
+│   ├── demo_prolog.pl            # Corre las queries de referencia directo en swipl
+│   └── demo_pyswip.py            # Las mismas queries, pero via pyswip desde Python
 └── tests/                        # Pruebas automatizadas (pytest)
 ```
 
