@@ -1,0 +1,39 @@
+{% extends "_admin_base.html" %}
+{% block title %}MediLogic - RPA carga masiva{% endblock %}
+
+{% block admin_content %}
+<h2 class="page-title">RPA — Carga masiva de enfermedades</h2>
+<p class="page-subtitle">Sube un archivo JSON con el formato de <code>EjemploRPA.json</code> y el robot completará el alta por ti, clasificando automáticamente cada enfermedad por tipo.</p>
+
+<div class="card">
+  <h3>1. Archivo de origen</h3>
+  <form method="post" action="{{ url_for('admin.rpa_ejecutar') }}" enctype="multipart/form-data">
+    <input type="file" name="archivo" accept=".json" required>
+    <p style="font-size:0.8rem;color:var(--color-text-muted);">
+      Campos esperados: nombre_enfermedad, descripcion, sintomas_asociados, medicamentos_contraindicados, sistema_cuerpo.
+      El "tipo" (crónico, viral, bacteriano, inmunológico) se infiere automáticamente a partir de la descripción.
+    </p>
+    <button type="submit" class="btn btn-primary" style="margin-top:8px;">▶ Ejecutar RPA de carga</button>
+  </form>
+</div>
+
+{% if reporte %}
+<div class="card">
+  <h3>2. Resultado de la ejecución</h3>
+  <div class="stat-grid" style="grid-template-columns:repeat(3,1fr);">
+    <div class="stat-card"><div class="value">{{ reporte.creadas }}</div><div class="label">Creadas</div></div>
+    <div class="stat-card"><div class="value">{{ reporte.actualizadas }}</div><div class="label">Actualizadas</div></div>
+    <div class="stat-card"><div class="value">{{ reporte.errores }}</div><div class="label">Errores</div></div>
+  </div>
+  <div class="log-box">{{ reporte.texto_bitacora() }}</div>
+</div>
+
+<div class="card">
+  <h3>3. Bitácora generada (texto plano)</h3>
+  <p style="font-size:0.85rem;">
+    <code>{{ reporte.ruta_bitacora.name }}</code> — resumen de la carga, disponible para descarga y consulta posterior.
+  </p>
+  <a class="btn btn-secondary" href="{{ url_for('admin.rpa_bitacora', nombre_archivo=reporte.ruta_bitacora.name) }}">⬇ Descargar bitácora</a>
+</div>
+{% endif %}
+{% endblock %}

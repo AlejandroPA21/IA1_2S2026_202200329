@@ -1,0 +1,37 @@
+{% extends "_admin_base.html" %}
+{% block title %}MediLogic - Gestión de síntomas{% endblock %}
+
+{% block admin_content %}
+<h2 class="page-title">Síntomas</h2>
+<p class="page-subtitle">Catálogo de síntomas disponibles para el formulario del paciente y para asociar a enfermedades.</p>
+
+<div class="card">
+  {% if sintomas %}
+  <table>
+    <tr><th>Síntoma</th><th>Acciones</th></tr>
+    {% for s in sintomas %}
+    <tr>
+      <td>{{ s | etiqueta }}</td>
+      <td class="actions">
+        <form method="post" action="{{ url_for('admin.sintomas_eliminar', atomo=s) }}" onsubmit="return confirm('¿Eliminar el síntoma {{ s }}? También se quitará de las enfermedades que lo tengan asociado.');">
+          <button type="submit" class="link-btn danger">Eliminar</button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% else %}
+  <p class="empty-state">No hay síntomas registrados todavía.</p>
+  {% endif %}
+</div>
+
+<div class="card">
+  <h3>Nuevo síntoma</h3>
+  <form method="post" action="{{ url_for('admin.sintomas_crear') }}" style="display:flex;gap:10px;align-items:flex-end;">
+    <label class="field" style="flex:1;margin-bottom:0;"><span>Nombre</span>
+      <input type="text" name="nombre" style="width:100%;" placeholder="Ej. Dolor de garganta" required>
+    </label>
+    <button type="submit" class="btn btn-primary">Agregar</button>
+  </form>
+</div>
+{% endblock %}

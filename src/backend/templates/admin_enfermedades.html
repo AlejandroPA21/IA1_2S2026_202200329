@@ -1,0 +1,105 @@
+{% extends "_admin_base.html" %}
+{% block title %}MediLogic - Gestión de enfermedades{% endblock %}
+
+{% block admin_content %}
+<div style="display:flex;justify-content:space-between;align-items:center;">
+  <div>
+    <h2 class="page-title">Enfermedades</h2>
+    <p class="page-subtitle">Gestiona el catálogo de enfermedades y su clasificación.</p>
+  </div>
+  <a href="#formulario" class="btn btn-primary">+ Nueva enfermedad</a>
+</div>
+
+<div class="card">
+  {% if enfermedades %}
+  <table>
+    <tr><th>Nombre</th><th>Sistema del cuerpo</th><th>Tipo</th><th>Síntomas</th><th>Acciones</th></tr>
+    {% for e in enfermedades %}
+    <tr>
+      <td>{{ e.nombre | etiqueta }}</td>
+      <td>{{ e.sistema_cuerpo | etiqueta }}</td>
+      <td>{{ e.tipo | etiqueta }}</td>
+      <td>{{ e.sintomas | length }}</td>
+      <td class="actions">
+        <a href="{{ url_for('admin.enfermedades', editar=e.nombre) }}#formulario">Editar</a> ·
+        <form method="post" action="{{ url_for('admin.enfermedades_eliminar', nombre=e.nombre) }}" onsubmit="return confirm('¿Eliminar la enfermedad {{ e.nombre }}?');">
+          <button type="submit" class="link-btn danger">Eliminar</button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% else %}
+  <p class="empty-state">No hay enfermedades registradas todavía.</p>
+  {% endif %}
+</div>
+
+<div class="card" id="formulario">
+  <h3>{{ 'Editar enfermedad: ' + (enfermedad_editar.nombre | etiqueta) if enfermedad_editar else 'Nueva enfermedad' }}</h3>
+  <form method="post" action="{{ url_for('admin.enfermedades_guardar') }}">
+    {% if enfermedad_editar %}
+    <input type="hidden" name="nombre_original" value="{{ enfermedad_editar.nombre }}">
+    {% endif %}
+    <div class="form-grid">
+      <label class="field"><span>Nombre</span>
+        <input type="text" name="nombre" style="width:100%;" placeholder="Ej. Migraña Crónica"
+               value="{{ (enfermedad_editar.nombre | etiqueta) if enfermedad_editar else '' }}" required>
+      </label>
+      <label class="field"><span>Sistema del cuerpo</span>
+        <select name="sistema_cuerpo" style="width:100%;">
+          {% for s in sistemas %}
+          <option value="{{ s }}" {{ 'selected' if enfermedad_editar and enfermedad_editar.sistema_cuerpo == s else '' }}>{{ s | etiqueta }}</option>
+          {% endfor %}
+        </select>
+      </label>
+      <label class="field"><span>Tipo</span>
+        <select name="tipo" style="width:100%;">
+          {% for t in tipos %}
+          <option value="{{ t }}" {{ 'selected' if enfermedad_editar and enfermedad_editar.tipo == t else '' }}>{{ t | etiqueta }}</option>
+          {% endfor %}
+        </select>
+      </label>
+      <label class="field"><span>Descripción</span>
+        <input type="text" name="descripcion" style="width:100%;" placeholder="Descripción breve"
+               value="{{ enfermedad_editar.descripcion if enfermedad_editar else '' }}">
+      </label>
+    </div>
+    <div class="form-grid" style="margin-top:16px;">
+      <div>
+        <p style="font-size:0.85rem;margin-bottom:6px;"><strong>Síntomas asociados</strong></p>
+        <div class="check-list">
+          {% for s in sintomas %}
+          <div class="check-row">
+            <label><input type="checkbox" name="sintomas" value="{{ s }}"
+              {{ 'checked' if enfermedad_editar and s in enfermedad_editar.sintomas else '' }}> {{ s | etiqueta }}</label>
+          </div>
+          {% endfor %}
+          {% if not sintomas %}
+          <p class="empty-state">Registra síntomas primero desde la sección "Síntomas".</p>
+          {% endif %}
+        </div>
+      </div>
+      <div>
+        <p style="font-size:0.85rem;margin-bottom:6px;"><strong>Medicamentos contraindicados</strong></p>
+        <div class="check-list">
+          {% for m in medicamentos %}
+          <div class="check-row">
+            <label><input type="checkbox" name="medicamentos_contraindicados" value="{{ m }}"
+              {{ 'checked' if enfermedad_editar and m in enfermedad_editar.medicamentos_contraindicados else '' }}> {{ m | etiqueta }}</label>
+          </div>
+          {% endfor %}
+          {% if not medicamentos %}
+          <p class="empty-state">Registra medicamentos primero desde la sección "Medicamentos".</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    <div style="text-align:right;margin-top:16px;display:flex;justify-content:flex-end;gap:10px;">
+      {% if enfermedad_editar %}
+      <a href="{{ url_for('admin.enfermedades') }}" class="btn btn-secondary">Cancelar edición</a>
+      {% endif %}
+      <button type="submit" class="btn btn-primary">Guardar (actualiza knowledge_base.pl)</button>
+    </div>
+  </form>
+</div>
+{% endblock %}

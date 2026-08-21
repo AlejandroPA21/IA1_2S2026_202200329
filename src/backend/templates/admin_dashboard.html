@@ -1,0 +1,26 @@
+{% extends "_admin_base.html" %}
+{% block title %}MediLogic - Panel administrador{% endblock %}
+
+{% block admin_content %}
+<h2 class="page-title">Panel general</h2>
+<p class="page-subtitle">Estado actual de la base de conocimiento.</p>
+
+<div class="stat-grid">
+  <div class="stat-card"><div class="value">{{ resumen.enfermedades }}</div><div class="label">Enfermedades registradas</div></div>
+  <div class="stat-card"><div class="value">{{ resumen.sintomas }}</div><div class="label">Síntomas registrados</div></div>
+  <div class="stat-card"><div class="value">{{ resumen.medicamentos }}</div><div class="label">Medicamentos registrados</div></div>
+  <div class="stat-card"><div class="value">knowledge_base.pl</div><div class="label">Única fuente de verdad (auto-actualizado)</div></div>
+</div>
+
+<div class="card">
+  <h3>Accesos rápidos</h3>
+  <p style="font-size:0.9rem;">
+    <a href="{{ url_for('admin.enfermedades') }}">Gestionar enfermedades</a> ·
+    <a href="{{ url_for('admin.sintomas') }}">Gestionar síntomas</a> ·
+    <a href="{{ url_for('admin.medicamentos') }}">Gestionar medicamentos</a> ·
+    <a href="{{ url_for('admin.contraindicaciones') }}">Gestionar contraindicaciones</a> ·
+    <a href="{{ url_for('admin.rpa') }}">Ejecutar RPA de carga masiva</a> ·
+    <a href="{{ url_for('admin.exportar_pl') }}">Exportar knowledge_base.pl</a>
+  </p>
+</div>
+{% endblock %}

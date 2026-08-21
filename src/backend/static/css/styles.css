@@ -1,0 +1,276 @@
+/* =============================================================================
+   MediLogic - Hoja de estilos de la aplicacion
+   =============================================================================
+   Basada en la paleta y componentes definidos en los mockups
+   (docs/mockups/assets/styles.css); se amplia aqui con los estados que la
+   version estatica no necesitaba: mensajes flash, formularios reales,
+   botones de peligro/eliminar y pequenas utilidades de layout.
+   ========================================================================== */
+
+:root {
+  --color-primary: #1d7874;
+  --color-primary-dark: #12514e;
+  --color-primary-light: #e3f3f2;
+  --color-accent: #2f9e44;
+  --color-warning: #f08c00;
+  --color-danger: #e03131;
+  --color-bg: #f7f9fa;
+  --color-surface: #ffffff;
+  --color-border: #e2e8f0;
+  --color-text: #1a202c;
+  --color-text-muted: #5b6472;
+  --radius: 10px;
+  --shadow: 0 1px 3px rgba(16, 24, 40, 0.08), 0 1px 2px rgba(16, 24, 40, 0.06);
+  --font: "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: var(--font);
+  background: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.5;
+}
+
+a { color: var(--color-primary); }
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  padding: 14px 28px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: var(--color-primary-dark);
+  text-decoration: none;
+}
+
+.brand .logo-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  display: inline-block;
+}
+
+.nav-links { display: flex; gap: 20px; align-items: center; }
+.nav-links a {
+  text-decoration: none;
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+}
+.nav-links a.active { color: var(--color-primary-dark); font-weight: 600; }
+
+.disclaimer-bar {
+  background: #fff8e6;
+  border-bottom: 1px solid #f2d896;
+  color: #7a5b00;
+  font-size: 0.85rem;
+  text-align: center;
+  padding: 6px 12px;
+}
+
+.layout { display: flex; min-height: calc(100vh - 52px); }
+
+.sidebar {
+  width: 220px;
+  background: var(--color-surface);
+  border-right: 1px solid var(--color-border);
+  padding: 20px 0;
+  flex-shrink: 0;
+}
+.sidebar a {
+  display: block;
+  padding: 10px 22px;
+  text-decoration: none;
+  color: var(--color-text-muted);
+  font-size: 0.92rem;
+  border-left: 3px solid transparent;
+}
+.sidebar a.active {
+  color: var(--color-primary-dark);
+  font-weight: 600;
+  border-left-color: var(--color-primary);
+  background: var(--color-primary-light);
+}
+
+.main { flex: 1; padding: 28px; max-width: 1100px; }
+
+.page-title { margin: 0 0 4px 0; font-size: 1.5rem; }
+.page-subtitle { color: var(--color-text-muted); margin: 0 0 24px 0; font-size: 0.95rem; }
+
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 20px 24px;
+  margin-bottom: 20px;
+}
+
+.card h3 { margin-top: 0; font-size: 1.05rem; }
+
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+@media (max-width: 860px) { .form-grid { grid-template-columns: 1fr; } }
+
+.check-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px dashed var(--color-border);
+}
+.check-row:last-child { border-bottom: none; }
+.check-row label { display: flex; align-items: center; gap: 8px; font-size: 0.92rem; }
+
+.check-list { max-height: 260px; overflow-y: auto; padding-right: 4px; }
+
+select, input[type="text"], input[type="password"], input[type="file"], textarea {
+  font-family: var(--font);
+  padding: 7px 10px;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  font-size: 0.88rem;
+  background: var(--color-surface);
+  color: var(--color-text);
+}
+
+label.field { display: block; font-size: 0.85rem; margin-bottom: 12px; }
+label.field > span { display: block; margin-bottom: 4px; }
+
+.btn {
+  display: inline-block;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+  font-family: var(--font);
+}
+.btn-primary { background: var(--color-primary); color: #fff; }
+.btn-primary:hover { background: var(--color-primary-dark); }
+.btn-secondary { background: var(--color-surface); color: var(--color-primary-dark); border: 1px solid var(--color-primary); }
+.btn-danger { background: #fff5f5; color: var(--color-danger); border: 1px solid #ffc9c9; }
+.btn-danger:hover { background: #ffe3e3; }
+.btn-block { display: block; width: 100%; }
+.btn-lg { padding: 14px 28px; font-size: 1.05rem; }
+.btn-sm { padding: 5px 12px; font-size: 0.82rem; }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.link-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--color-primary);
+  cursor: pointer;
+  font-size: inherit;
+  font-family: inherit;
+  text-decoration: underline;
+}
+.link-btn.danger { color: var(--color-danger); }
+
+.badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+.badge-danger { background: #ffe3e3; color: var(--color-danger); }
+.badge-warning { background: #fff3bf; color: #966d00; }
+.badge-safe { background: #ebfbee; color: var(--color-accent); }
+.badge-neutral { background: var(--color-primary-light); color: var(--color-primary-dark); }
+
+.affinity-bar {
+  height: 10px;
+  border-radius: 999px;
+  background: var(--color-border);
+  overflow: hidden;
+  margin: 8px 0;
+}
+.affinity-bar > span {
+  display: block;
+  height: 100%;
+  background: var(--color-primary);
+}
+
+table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--color-border); }
+th { color: var(--color-text-muted); font-weight: 600; font-size: 0.82rem; text-transform: uppercase; }
+td.actions { white-space: nowrap; }
+td.actions form { display: inline; }
+
+.empty-state { color: var(--color-text-muted); font-size: 0.9rem; padding: 12px 0; }
+
+.hero {
+  max-width: 720px;
+  margin: 60px auto;
+  text-align: center;
+  padding: 0 20px;
+}
+.hero h1 { font-size: 2.1rem; color: var(--color-primary-dark); margin-bottom: 10px; }
+.hero p { color: var(--color-text-muted); font-size: 1.05rem; }
+.hero-actions { display: flex; gap: 16px; justify-content: center; margin-top: 28px; }
+
+.stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+@media (max-width: 860px) { .stat-grid { grid-template-columns: 1fr 1fr; } }
+.stat-card { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius); padding: 16px 20px; }
+.stat-card .value { font-size: 1.6rem; font-weight: 700; color: var(--color-primary-dark); }
+.stat-card .label { color: var(--color-text-muted); font-size: 0.82rem; }
+
+.rules-box {
+  background: #f4f6f8;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 0.82rem;
+  color: #333;
+  margin-top: 10px;
+}
+.rules-box code { display: block; margin: 2px 0; }
+
+.log-box {
+  background: #0f172a;
+  color: #d1fae5;
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 0.82rem;
+  border-radius: 8px;
+  padding: 16px;
+  white-space: pre-wrap;
+  max-height: 360px;
+  overflow-y: auto;
+}
+
+.flash-list { list-style: none; margin: 0 28px 20px 28px; padding: 0; }
+.flash {
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 0.88rem;
+  margin-bottom: 8px;
+  border: 1px solid transparent;
+}
+.flash-success { background: #ebfbee; color: #2b8a3e; border-color: #b2f2bb; }
+.flash-danger { background: #fff5f5; color: var(--color-danger); border-color: #ffc9c9; }
+.flash-warning { background: #fff8e6; color: #966d00; border-color: #f2d896; }
+
+footer.site-footer {
+  text-align: center;
+  padding: 20px;
+  color: var(--color-text-muted);
+  font-size: 0.8rem;
+}

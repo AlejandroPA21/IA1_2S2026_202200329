@@ -1,0 +1,55 @@
+{% extends "_admin_base.html" %}
+{% block title %}MediLogic - Contraindicaciones{% endblock %}
+
+{% block admin_content %}
+<h2 class="page-title">Contraindicaciones</h2>
+<p class="page-subtitle">
+  Define relaciones de contraindicación entre medicamentos y enfermedades. Estas reglas se
+  aplican tanto contra la enfermedad diagnosticada (fármaco-patología) como contra las
+  enfermedades crónicas que el paciente marque como antecedente.
+</p>
+
+<div class="card">
+  {% if contraindicaciones %}
+  <table>
+    <tr><th>Medicamento</th><th>Enfermedad</th><th>Acciones</th></tr>
+    {% for c in contraindicaciones %}
+    <tr>
+      <td>{{ c.medicamento | etiqueta }}</td>
+      <td>{{ c.enfermedad | etiqueta }}</td>
+      <td class="actions">
+        <form method="post" action="{{ url_for('admin.contraindicaciones_eliminar') }}" onsubmit="return confirm('¿Eliminar esta contraindicación?');">
+          <input type="hidden" name="medicamento" value="{{ c.medicamento }}">
+          <input type="hidden" name="enfermedad" value="{{ c.enfermedad }}">
+          <button type="submit" class="link-btn danger">Eliminar</button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% else %}
+  <p class="empty-state">No hay contraindicaciones registradas todavía.</p>
+  {% endif %}
+</div>
+
+<div class="card">
+  <h3>Nueva contraindicación</h3>
+  {% if medicamentos and enfermedades %}
+  <form method="post" action="{{ url_for('admin.contraindicaciones_crear') }}" class="form-grid" style="align-items:flex-end;">
+    <label class="field"><span>Medicamento</span>
+      <select name="medicamento" style="width:100%;">
+        {% for m in medicamentos %}<option value="{{ m }}">{{ m | etiqueta }}</option>{% endfor %}
+      </select>
+    </label>
+    <label class="field"><span>Enfermedad</span>
+      <select name="enfermedad" style="width:100%;">
+        {% for e in enfermedades %}<option value="{{ e }}">{{ e | etiqueta }}</option>{% endfor %}
+      </select>
+    </label>
+    <div><button type="submit" class="btn btn-primary">Agregar</button></div>
+  </form>
+  {% else %}
+  <p class="empty-state">Registra al menos un medicamento y una enfermedad antes de definir contraindicaciones.</p>
+  {% endif %}
+</div>
+{% endblock %}

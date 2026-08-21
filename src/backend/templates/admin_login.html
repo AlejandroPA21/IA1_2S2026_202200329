@@ -1,0 +1,29 @@
+{% extends "_base.html" %}
+{% block title %}MediLogic - Acceso administrador{% endblock %}
+
+{% block nav_links %}
+<a href="{{ url_for('index') }}">Inicio</a>
+{% endblock %}
+
+{% block content %}
+<div class="card" style="max-width:380px;margin:60px auto;">
+  <h3 style="text-align:center;">Acceso administrador</h3>
+  <p style="text-align:center;color:var(--color-text-muted);font-size:0.85rem;">
+    Exclusivo para personal médico autorizado.
+  </p>
+  <form method="post" action="{{ url_for('admin.login_post') }}" style="display:flex;flex-direction:column;gap:12px;margin-top:16px;">
+    <input type="hidden" name="siguiente" value="{{ request.args.get('siguiente', '') }}">
+    <label style="font-size:0.85rem;">Usuario
+      <input type="text" name="usuario" style="width:100%;margin-top:4px;" placeholder="admin" required autofocus>
+    </label>
+    <label style="font-size:0.85rem;">Contraseña
+      <input type="password" name="contrasena" style="width:100%;margin-top:4px;" placeholder="••••••••" required>
+    </label>
+    <button type="submit" class="btn btn-primary btn-block" style="margin-top:8px;">Iniciar sesión</button>
+  </form>
+</div>
+{% endblock %}
+
+{% block footer %}
+<footer class="site-footer">MediLogic — Módulo Administrador</footer>
+{% endblock %}

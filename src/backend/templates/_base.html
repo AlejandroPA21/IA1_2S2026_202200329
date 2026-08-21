@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}MediLogic{% endblock %}</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+{% block extra_head %}{% endblock %}
+</head>
+<body>
+
+<div class="topbar">
+  <a class="brand" href="{{ url_for('index') }}"><span class="logo-dot"></span> MediLogic</a>
+  <div class="nav-links">
+    {% block nav_links %}
+    <a href="{{ url_for('paciente.formulario') }}">Módulo Paciente</a>
+    <a href="{{ url_for('admin.login') }}">Módulo Administrador</a>
+    {% endblock %}
+  </div>
+</div>
+{% block disclaimer %}{% endblock %}
+
+{% with mensajes = get_flashed_messages(with_categories=true) %}
+  {% if mensajes %}
+  <ul class="flash-list">
+    {% for categoria, mensaje in mensajes %}
+    <li class="flash flash-{{ categoria }}">{{ mensaje }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+{% endwith %}
+
+{% block content %}{% endblock %}
+
+{% block footer %}
+<footer class="site-footer">Proyecto académico — Inteligencia Artificial 1 — USAC — Licencia MIT</footer>
+{% endblock %}
+
+{% block scripts %}{% endblock %}
+</body>
+</html>

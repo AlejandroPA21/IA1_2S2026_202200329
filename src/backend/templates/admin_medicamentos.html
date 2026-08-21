@@ -1,0 +1,50 @@
+{% extends "_admin_base.html" %}
+{% block title %}MediLogic - Gestión de medicamentos{% endblock %}
+
+{% block admin_content %}
+<h2 class="page-title">Medicamentos</h2>
+<p class="page-subtitle">Administra los medicamentos disponibles y qué enfermedades puede tratar cada uno.</p>
+
+<div class="card">
+  <h3>Nuevo medicamento</h3>
+  <form method="post" action="{{ url_for('admin.medicamentos_crear') }}" style="display:flex;gap:10px;align-items:flex-end;">
+    <label class="field" style="flex:1;margin-bottom:0;"><span>Nombre</span>
+      <input type="text" name="nombre" style="width:100%;" placeholder="Ej. Paracetamol" required>
+    </label>
+    <button type="submit" class="btn btn-primary">Agregar</button>
+  </form>
+</div>
+
+{% if medicamentos %}
+{% for m in medicamentos %}
+<div class="card">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+    <h3 style="margin-bottom:8px;">{{ m | etiqueta }}</h3>
+    <form method="post" action="{{ url_for('admin.medicamentos_eliminar', atomo=m) }}" onsubmit="return confirm('¿Eliminar el medicamento {{ m }}?');">
+      <button type="submit" class="link-btn danger">Eliminar</button>
+    </form>
+  </div>
+  <form method="post" action="{{ url_for('admin.medicamentos_tratamientos', atomo=m) }}">
+    <p style="font-size:0.85rem;margin-bottom:6px;"><strong>Trata las enfermedades:</strong></p>
+    {% if enfermedades %}
+    <div class="check-list">
+      {% for e in enfermedades %}
+      <div class="check-row">
+        <label><input type="checkbox" name="enfermedades" value="{{ e }}"
+          {{ 'checked' if e in tratamientos.get(m, []) else '' }}> {{ e | etiqueta }}</label>
+      </div>
+      {% endfor %}
+    </div>
+    <div style="text-align:right;margin-top:10px;">
+      <button type="submit" class="btn btn-secondary btn-sm">Guardar tratamientos</button>
+    </div>
+    {% else %}
+    <p class="empty-state">Registra enfermedades primero desde la sección "Enfermedades".</p>
+    {% endif %}
+  </form>
+</div>
+{% endfor %}
+{% else %}
+<div class="card"><p class="empty-state">No hay medicamentos registrados todavía.</p></div>
+{% endif %}
+{% endblock %}

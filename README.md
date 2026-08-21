@@ -39,11 +39,15 @@ Ver [ENUNCIADO.md](ENUNCIADO.md) para el enunciado completo del proyecto.
 │   ├── prolog/
 │   │   └── knowledge_base.pl     # Base de conocimiento: hechos y reglas Prolog
 │   ├── backend/                  # Aplicación Flask (rutas, plantillas, static)
-│   │   ├── app.py
+│   │   ├── app.py                # Fabrica create_app: registra blueprints y motor Prolog
 │   │   ├── prolog_engine.py      # Puente Python <-> Prolog (pyswip)
-│   │   └── routes/               # Blueprints: paciente y administrador
+│   │   ├── knowledge_store.py    # CRUD administrativo -> reescribe knowledge_base.pl
+│   │   ├── pdf_report.py         # Informe de diagnóstico en PDF (ReportLab)
+│   │   ├── routes/               # Blueprints: paciente y administrador
+│   │   ├── templates/            # Plantillas Jinja2 (basadas en docs/mockups/)
+│   │   └── static/               # CSS y JS de la aplicación real
 │   └── rpa/
-│       └── admin_rpa.py          # Automatización de carga de enfermedades
+│       └── admin_rpa.py          # Automatización de carga masiva de enfermedades
 ├── scripts/
 │   ├── demo_prolog.pl            # Corre las queries de referencia directo en swipl
 │   └── demo_pyswip.py            # Las mismas queries, pero via pyswip desde Python
@@ -63,7 +67,14 @@ Las decisiones técnicas y su justificación se documentan en
 
 ## Estado del proyecto
 
-🚧 En desarrollo — Entrega No. 1 (avance inicial).
+🚧 En desarrollo. Ya funcionan de punta a punta: el formulario de paciente contra el motor
+Prolog real (afinidad, urgencia, medicamento seguro, PDF descargable), y el panel de
+administrador (login, CRUD de enfermedades/síntomas/medicamentos/contraindicaciones,
+exportación del `.pl` y carga masiva vía RPA), reemplazando los mockups estáticos de
+`docs/mockups/` por plantillas Jinja2 que consumen las rutas Flask reales. Pendiente para la
+Entrega No. 2: automatización de la interfaz gráfica del RPA con PyAutoGUI (por ahora
+`admin_rpa.py` ejecuta la misma lógica de alta que usa el formulario manual, ver
+`docs/decisiones_tecnicas.md`), y los entregables de documentación/evaluación de coherencia.
 
 ## Instalación y ejecución
 
@@ -73,6 +84,10 @@ python -m venv .venv
 pip install -r requirements.txt
 python src/backend/app.py
 ```
+
+Luego visita `http://127.0.0.1:5000/`. Credenciales de administrador por defecto:
+usuario `admin`, contraseña `medilogic2026` (configurables con las variables de entorno
+`ADMIN_USER` / `ADMIN_PASSWORD`, ver `docs/decisiones_tecnicas.md`).
 
 > Requiere tener instalado [SWI-Prolog](https://www.swi-prolog.org/) en el sistema para
 > que `pyswip` pueda comunicarse con el motor lógico.

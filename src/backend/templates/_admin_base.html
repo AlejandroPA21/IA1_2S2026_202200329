@@ -1,0 +1,26 @@
+{% extends "_base.html" %}
+
+{% block nav_links %}
+<span style="font-size:0.85rem;color:var(--color-text-muted);">Sesión: {{ session.get('admin_usuario', 'admin') }}</span>
+<a href="{{ url_for('admin.logout') }}">Cerrar sesión</a>
+{% endblock %}
+
+{% block content %}
+<div class="layout">
+  <div class="sidebar">
+    <a href="{{ url_for('admin.dashboard') }}" class="{{ 'active' if seccion_activa == 'dashboard' else '' }}">Panel general</a>
+    <a href="{{ url_for('admin.enfermedades') }}" class="{{ 'active' if seccion_activa == 'enfermedades' else '' }}">Enfermedades</a>
+    <a href="{{ url_for('admin.sintomas') }}" class="{{ 'active' if seccion_activa == 'sintomas' else '' }}">Síntomas</a>
+    <a href="{{ url_for('admin.medicamentos') }}" class="{{ 'active' if seccion_activa == 'medicamentos' else '' }}">Medicamentos</a>
+    <a href="{{ url_for('admin.contraindicaciones') }}" class="{{ 'active' if seccion_activa == 'contraindicaciones' else '' }}">Contraindicaciones</a>
+    <a href="{{ url_for('admin.rpa') }}" class="{{ 'active' if seccion_activa == 'rpa' else '' }}">RPA — Carga masiva</a>
+    <a href="{{ url_for('admin.exportar_pl') }}">Exportar archivo .pl</a>
+  </div>
+
+  <div class="main">
+    {% block admin_content %}{% endblock %}
+  </div>
+</div>
+{% endblock %}
+
+{% block footer %}{% endblock %}

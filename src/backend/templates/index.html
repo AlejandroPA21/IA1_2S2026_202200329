@@ -1,0 +1,33 @@
+{% extends "_base.html" %}
+{% block title %}MediLogic - Inicio{% endblock %}
+
+{% block content %}
+<div class="hero">
+  <h1>Diagnóstico médico preliminar asistido por lógica computacional</h1>
+  <p>
+    MediLogic analiza tus síntomas, alergias y enfermedades crónicas mediante un motor de
+    inferencia en Prolog para sugerirte posibles diagnósticos, su nivel de afinidad y el
+    tratamiento más seguro para ti.
+  </p>
+  <p><strong>⚠️ Esta herramienta no sustituye la consulta médica profesional.</strong></p>
+
+  <div class="hero-actions">
+    <a class="btn btn-primary btn-lg" href="{{ url_for('paciente.formulario') }}">Soy paciente — Iniciar diagnóstico</a>
+    <a class="btn btn-secondary btn-lg" href="{{ url_for('admin.login') }}">Acceso administrador</a>
+  </div>
+</div>
+
+<div class="card" style="max-width:720px;margin:0 auto 40px auto;">
+  <h3>¿Cómo funciona?</h3>
+  <ol style="color:var(--color-text-muted);font-size:0.92rem;">
+    <li>Selecciona tus síntomas actuales y su severidad (leve, moderado o severo).</li>
+    <li>Indica tus alergias a medicamentos y enfermedades crónicas preexistentes.</li>
+    <li>Solicita el análisis: el motor en Prolog calcula la afinidad con cada enfermedad registrada.</li>
+    <li>Recibe un informe con diagnósticos, nivel de urgencia y medicamento sugerido, descargable en PDF.</li>
+  </ol>
+</div>
+{% endblock %}
+
+{% block footer %}
+<footer class="site-footer">Proyecto académico — Inteligencia Artificial 1 — USAC — Licencia MIT</footer>
+{% endblock %}

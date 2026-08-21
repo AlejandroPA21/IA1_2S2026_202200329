@@ -24,6 +24,7 @@ ENV/
 /output/
 /generated_reports/
 *.log
+src/backend/instance/
 
 # --- Herramientas y cache ---
 .pytest_cache/

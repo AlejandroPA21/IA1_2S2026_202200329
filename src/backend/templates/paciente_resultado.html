@@ -1,0 +1,93 @@
+{% extends "_base.html" %}
+{% block title %}MediLogic - Informe de diagnóstico{% endblock %}
+
+{% block nav_links %}
+<a href="{{ url_for('paciente.formulario') }}">Nuevo diagnóstico</a>
+<a href="{{ url_for('index') }}">Salir</a>
+{% endblock %}
+
+{% block content %}
+<div class="main" style="max-width:900px;margin:0 auto;">
+  <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+    <div>
+      <h2 class="page-title">Informe de diagnóstico</h2>
+      <p class="page-subtitle" id="resultado-subtitulo">{{ resultados | length }} posible(s) diagnóstico(s) encontrado(s)</p>
+    </div>
+    <form method="post" action="{{ url_for('paciente.informe_pdf') }}">
+      {% for s, sev in sintomas %}
+      <input type="hidden" name="sintoma" value="{{ s }}">
+      <input type="hidden" name="severidad_{{ s }}" value="{{ sev }}">
+      {% endfor %}
+      {% for a in alergias %}
+      <input type="hidden" name="alergia" value="{{ a }}">
+      {% endfor %}
+      {% for c in cronicas %}
+      <input type="hidden" name="cronica" value="{{ c }}">
+      {% endfor %}
+      <button type="submit" class="btn btn-secondary">⬇ Descargar informe en PDF</button>
+    </form>
+  </div>
+
+  {% if not resultados %}
+  <div class="card">
+    <p class="empty-state">No se encontraron enfermedades compatibles con los síntomas seleccionados. Prueba
+      seleccionar al menos un síntoma o revisa la severidad indicada.</p>
+  </div>
+  {% endif %}
+
+  {% for r in resultados %}
+  <div class="card">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+      <div>
+        <h3 style="margin-bottom:4px;">{{ loop.index }}. {{ r.enfermedad | etiqueta }}</h3>
+        <span class="badge {{ 'badge-danger' if r.urgencia == 'alta' else ('badge-warning' if r.urgencia == 'media' else 'badge-safe') }}">{{ r.recomendacion }}</span>
+      </div>
+      <strong style="font-size:1.3rem;color:var(--color-primary-dark);">{{ r.afinidad }}%</strong>
+    </div>
+    <div class="affinity-bar"><span style="width:{{ r.afinidad }}%;"></span></div>
+    <p style="font-size:0.9rem;">
+      <strong>Medicamento sugerido:</strong>
+      {% if r.medicamento == 'ninguno_disponible' %}
+      <span class="badge badge-warning">Ningún medicamento seguro disponible para tus alergias/enfermedades crónicas</span>
+      {% else %}
+      {{ r.medicamento | etiqueta }}
+      {% endif %}
+    </p>
+    <div class="rules-box">
+      {% for regla in reglas_por_enfermedad.get(r.enfermedad, []) %}
+      <code>{{ regla }}</code>
+      {% endfor %}
+    </div>
+  </div>
+  {% endfor %}
+
+  <div class="card">
+    <h3>Historial de esta sesión</h3>
+    <table id="historial-tabla">
+      <thead><tr><th>Hora</th><th>Diagnóstico principal</th><th>Afinidad</th></tr></thead>
+      <tbody id="historial-cuerpo">
+        <tr><td colspan="3" class="empty-state">Sin diagnósticos previos en esta sesión.</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:0.8rem;color:var(--color-text-muted);margin-bottom:0;">
+      Historial temporal, almacenado solo durante la sesión activa del navegador (no se envía al servidor).
+    </p>
+  </div>
+</div>
+
+<script type="application/json" id="resultado-actual">
+  {% if principal %}
+  {{ {"principal": principal.enfermedad, "afinidad": principal.afinidad} | tojson }}
+  {% else %}
+  {{ {"principal": none, "afinidad": none} | tojson }}
+  {% endif %}
+</script>
+{% endblock %}
+
+{% block footer %}
+<footer class="site-footer">MediLogic — Informe generado por el motor de inferencia en Prolog</footer>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/historial.js') }}"></script>
+{% endblock %}

@@ -2,10 +2,14 @@
 
 Este directorio contiene el diseño de interfaz (wireframes) del entregable de la Entrega
 No. 1 — Tarea 1. Se implementaron como **HTML/CSS estático navegable** (no como imágenes)
-para que puedan abrirse directamente en el navegador y, sobre todo, para que sirvan de base
-real a las plantillas Jinja2 del backend Flask en la Entrega No. 2 — la maquetación y la
-paleta de colores se reutilizarán en `src/backend/templates/` y `src/backend/static/css/`,
-evitando rehacer el trabajo de diseño dos veces.
+para que puedan abrirse directamente en el navegador y, sobre todo, para que sirvieran de
+base real a las plantillas Jinja2 del backend Flask — la maquetación y la paleta de colores
+se reutilizaron tal cual en `src/backend/templates/` y `src/backend/static/css/styles.css`.
+
+> ✅ **Estado:** estos 7 mockups ya fueron implementados como aplicación real (formularios
+> funcionales, autenticación, CRUD contra `knowledge_base.pl`, PDF, RPA). Se conservan aquí
+> como evidencia de la fase de diseño y como referencia visual; la interfaz activa del
+> proyecto es la que corre con `python src/backend/app.py` (ver `README.md`).
 
 Ningún archivo aquí tiene lógica real: los formularios no envían datos y los botones son
 enlaces entre pantallas para poder recorrer el flujo completo. Los datos mostrados (síntomas,

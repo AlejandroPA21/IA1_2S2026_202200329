@@ -25,7 +25,13 @@
 % =============================================================================
 % 1. CATALOGO DE SINTOMAS (hechos)
 % =============================================================================
+% NOTA: las secciones 1-6 (hechos) estan delimitadas con marcadores
+% "% === AUTO:<seccion> START/END ===". El panel de administrador
+% (src/backend/knowledge_store.py) reescribe UNICAMENTE el contenido entre
+% cada par de marcadores al hacer un alta/edicion/baja; las reglas (secciones
+% 7 en adelante) nunca se tocan de forma automatica.
 
+% === AUTO:SINTOMAS START ===
 sintoma(dolor_cabeza).
 sintoma(mareo).
 sintoma(vision_borrosa).
@@ -38,6 +44,7 @@ sintoma(dolor_abdominal).
 sintoma(nauseas).
 sintoma(diarrea).
 sintoma(fiebre_leve).
+% === AUTO:SINTOMAS END ===
 
 
 % =============================================================================
@@ -49,6 +56,7 @@ sintoma(fiebre_leve).
 % ("este catalogo debe cargarse de forma dinamica consultando los
 % medicamentos registrados previamente por el administrador").
 
+% === AUTO:MEDICAMENTOS START ===
 medicamento(losartan).
 medicamento(enalapril).
 medicamento(salbutamol).
@@ -61,6 +69,7 @@ medicamento(corticosteroides).
 medicamento(descongestivos).
 medicamento(betabloqueantes).
 medicamento(anti_inflamatorios_no_esteroideos).
+% === AUTO:MEDICAMENTOS END ===
 
 
 % =============================================================================
@@ -69,6 +78,7 @@ medicamento(anti_inflamatorios_no_esteroideos).
 % enfermedad(Nombre, Descripcion, SistemaCuerpo, Tipo)
 % Datos de ejemplo tomados de EjemploRPA.json.
 
+% === AUTO:ENFERMEDADES START ===
 enfermedad(hipertension,
     'Presion arterial alta cronica que afecta el sistema circulatorio.',
     circulatorio, cronico).
@@ -84,12 +94,14 @@ enfermedad(diabetes_tipo_2,
 enfermedad(gastroenteritis_aguda,
     'Inflamacion de la membrana interna del intestino causada por infecciones.',
     digestivo, viral).
+% === AUTO:ENFERMEDADES END ===
 
 
 % =============================================================================
 % 4. RELACION ENFERMEDAD - SINTOMA (hechos)
 % =============================================================================
 
+% === AUTO:ENFERMEDAD_SINTOMA START ===
 enfermedad_sintoma(hipertension, dolor_cabeza).
 enfermedad_sintoma(hipertension, mareo).
 enfermedad_sintoma(hipertension, vision_borrosa).
@@ -106,6 +118,7 @@ enfermedad_sintoma(gastroenteritis_aguda, dolor_abdominal).
 enfermedad_sintoma(gastroenteritis_aguda, nauseas).
 enfermedad_sintoma(gastroenteritis_aguda, diarrea).
 enfermedad_sintoma(gastroenteritis_aguda, fiebre_leve).
+% === AUTO:ENFERMEDAD_SINTOMA END ===
 
 
 % =============================================================================
@@ -115,6 +128,7 @@ enfermedad_sintoma(gastroenteritis_aguda, fiebre_leve).
 % medicamento por enfermedad: si el primero resulta contraindicado, la regla
 % medicamento_sugerido/4 (seccion 9) prueba el siguiente automaticamente.
 
+% === AUTO:MEDICAMENTO_PARA START ===
 medicamento_para(losartan, hipertension).
 medicamento_para(enalapril, hipertension).
 
@@ -124,6 +138,7 @@ medicamento_para(metformina, diabetes_tipo_2).
 
 medicamento_para(suero_oral, gastroenteritis_aguda).
 medicamento_para(loperamida, gastroenteritis_aguda).
+% === AUTO:MEDICAMENTO_PARA END ===
 
 
 % =============================================================================
@@ -140,6 +155,7 @@ medicamento_para(loperamida, gastroenteritis_aguda).
 %     una enfermedad cronica del paciente es, precisamente, una enfermedad
 %     de este mismo catalogo (seccion 3).
 
+% === AUTO:CONTRAINDICACIONES START ===
 contraindicacion_enfermedad(ibuprofeno, hipertension).
 contraindicacion_enfermedad(descongestivos, hipertension).
 
@@ -149,6 +165,7 @@ contraindicacion_enfermedad(betabloqueantes, asma_bronquial).
 contraindicacion_enfermedad(corticosteroides, diabetes_tipo_2).
 
 contraindicacion_enfermedad(anti_inflamatorios_no_esteroideos, gastroenteritis_aguda).
+% === AUTO:CONTRAINDICACIONES END ===
 
 
 % =============================================================================

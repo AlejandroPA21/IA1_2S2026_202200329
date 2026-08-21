@@ -120,6 +120,56 @@ terminado como entregable:
    `Prolog().consult(...)` y las consultas `afinidad/3` e `informe/4` funcionan igual desde
    Python que desde la consola de SWI-Prolog.
 
+## 11. Reescritura segura del `.pl`: marcadores `AUTO:<seccion>`
+
+Para que el panel de administrador pueda "sobrescribir o actualizar directamente el archivo
+`.pl` en el disco" (sección 4.2) sin arriesgar las reglas de inferencia, cada una de las 6
+secciones de **hechos** de `knowledge_base.pl` (síntomas, medicamentos, enfermedades y las
+tres relaciones) quedó delimitada con comentarios `% === AUTO:<seccion> START/END ===`.
+`src/backend/knowledge_store.py` es el único módulo que escribe en el archivo: en cada
+alta/edición/baja, lee el estado completo vía consultas reales a `PrologEngine` (nunca
+reinterpretando el texto), lo modifica en memoria y reemplaza únicamente el contenido entre
+esos marcadores con una expresión regular, dejando intactas las reglas (secciones 7 en
+adelante) y los comentarios explicativos. Después llama a `PrologEngine.reload()` para que
+el `consult/1` en caliente use la base actualizada de inmediato.
+
+## 12. Autenticación del administrador
+
+El enunciado exige que el módulo administrativo esté "protegido por autenticación" sin
+detallar el mecanismo. Se implementó autenticación simple basada en sesión de Flask
+(`session["admin_autenticado"]`) contra un usuario/contraseña únicos, configurables por
+variables de entorno (`ADMIN_USER` / `ADMIN_PASSWORD`, con valores por defecto documentados
+en el `README.md`) en vez de una tabla de usuarios en base de datos, coherente con la
+decisión de no introducir persistencia adicional fuera del archivo `.pl` (ver punto 7). Es
+una solución intencionalmente mínima para un proyecto académico de un solo administrador;
+quedaría documentada como limitación de seguridad conocida frente a un entorno de
+producción real (contraseña en texto plano en variables de entorno, sin hashing ni límite de
+intentos).
+
+## 13. Clasificación automática de "tipo" en el RPA
+
+El JSON de origen (`EjemploRPA.json`) no incluye el campo "tipo" de enfermedad
+(crónico/viral/bacteriano/inmunológico) que sí exige `knowledge_base.pl`; el enunciado pide
+que el RPA "clasifique cada enfermedad... por sistema del cuerpo o por tipo", precisamente
+para ahorrarle ese trabajo repetitivo al administrador. Se implementó una clasificación por
+palabras clave sobre la descripción (`clasificar_tipo` en `src/rpa/admin_rpa.py`), con
+"crónico" como valor por defecto cuando ninguna palabra clave aplica (en un catálogo de
+diagnóstico preliminar, una condición que no se describe explícitamente como
+infecciosa/autoinmune/bacteriana suele ser crónica). Es una heurística deliberadamente
+simple y **no infalible**: la bitácora en texto plano deja constancia de la clasificación
+asignada a cada enfermedad para que el administrador la audite, y puede corregirla en
+cualquier momento desde el formulario manual de "Enfermedades" sin perder el resto de la
+carga.
+
+**Alcance de esta versión del RPA:** `ejecutar_carga` automatiza el alta completa (lectura
+del JSON, clasificación, escritura en `knowledge_base.pl` y generación de bitácora)
+invocando la misma capa de persistencia (`KnowledgeStore`) que usa el formulario manual del
+administrador, garantizando resultados idénticos a un alta hecha a mano. La automatización
+de la interfaz gráfica en sí (PyAutoGUI moviendo el mouse/tecleando sobre la pantalla del
+navegador para llenar el formulario campo por campo) queda pendiente para cuando se grabe el
+video de evidencia de la Entrega No. 2, ya que requiere una sesión gráfica real no disponible
+en el entorno donde se desarrolló y probó esta base.
+
 ---
 *Este documento se irá actualizando conforme surjan nuevas decisiones técnicas durante el
 desarrollo del proyecto.*

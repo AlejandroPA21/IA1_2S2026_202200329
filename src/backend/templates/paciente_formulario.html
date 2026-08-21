@@ -1,0 +1,89 @@
+{% extends "_base.html" %}
+{% block title %}MediLogic - Formulario de paciente{% endblock %}
+
+{% block nav_links %}
+<a href="{{ url_for('paciente.formulario') }}" class="active">Diagnóstico</a>
+<a href="{{ url_for('index') }}">Salir</a>
+{% endblock %}
+
+{% block disclaimer %}
+<div class="disclaimer-bar">Herramienta de orientación preliminar — no sustituye la consulta médica profesional.</div>
+{% endblock %}
+
+{% block content %}
+<div class="main" style="max-width:900px;margin:0 auto;">
+  <h2 class="page-title">Formulario de ingreso clínico</h2>
+  <p class="page-subtitle">Selecciona tus síntomas, alergias y antecedentes para generar tu informe.</p>
+
+  <form method="post" action="{{ url_for('paciente.diagnostico') }}">
+    <div class="card">
+      <h3>1. Síntomas actuales y severidad</h3>
+      {% if sintomas %}
+      <div class="check-list">
+        {% for s in sintomas %}
+        <div class="check-row">
+          <label>
+            <input type="checkbox" name="sintoma" value="{{ s }}" class="sintoma-check" data-target="severidad_{{ s }}">
+            {{ s | etiqueta }}
+          </label>
+          <select name="severidad_{{ s }}" id="severidad_{{ s }}" disabled>
+            <option value="leve">Leve</option>
+            <option value="moderado" selected>Moderado</option>
+            <option value="severo">Severo</option>
+          </select>
+        </div>
+        {% endfor %}
+      </div>
+      {% else %}
+      <p class="empty-state">Aún no hay síntomas registrados en la base de conocimiento.</p>
+      {% endif %}
+    </div>
+
+    <div class="form-grid">
+      <div class="card">
+        <h3>2. Alergias a medicamentos</h3>
+        {% if alergias %}
+        <div class="check-list">
+          {% for a in alergias %}
+          <div class="check-row"><label><input type="checkbox" name="alergia" value="{{ a }}"> {{ a | etiqueta }}</label></div>
+          {% endfor %}
+        </div>
+        {% else %}
+        <p class="empty-state">No hay medicamentos registrados todavía.</p>
+        {% endif %}
+        <p style="font-size:0.8rem;color:var(--color-text-muted);margin-bottom:0;">
+          Catálogo cargado dinámicamente desde los medicamentos registrados por el administrador.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>3. Enfermedades crónicas / antecedentes</h3>
+        {% if cronicas %}
+        <div class="check-list">
+          {% for c in cronicas %}
+          <div class="check-row"><label><input type="checkbox" name="cronica" value="{{ c }}"> {{ c | etiqueta }}</label></div>
+          {% endfor %}
+        </div>
+        {% else %}
+        <p class="empty-state">No hay enfermedades crónicas registradas todavía.</p>
+        {% endif %}
+        <p style="font-size:0.8rem;color:var(--color-text-muted);margin-bottom:0;">
+          Catálogo cargado dinámicamente desde las enfermedades registradas en el sistema.
+        </p>
+      </div>
+    </div>
+
+    <div style="text-align:right;">
+      <button type="submit" class="btn btn-primary btn-lg">Solicitar análisis</button>
+    </div>
+  </form>
+</div>
+{% endblock %}
+
+{% block footer %}
+<footer class="site-footer">MediLogic — Módulo de Paciente</footer>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/paciente.js') }}"></script>
+{% endblock %}
