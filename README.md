@@ -25,15 +25,18 @@ Ver [ENUNCIADO.md](ENUNCIADO.md) para el enunciado completo del proyecto.
 .
 ├── ENUNCIADO.md              # Enunciado oficial del proyecto
 ├── EjemploRPA.json           # Formato de ejemplo para la carga por RPA
+├── Ejemplo Archivo RPA V2.json  # Variante con el campo opcional tratamiento_recomendado
+├── Escenarios Proyecto 1.txt    # Escenarios de referencia (diagnóstico y RPA)
 ├── LICENSE                   # Licencia MIT
 ├── requirements.txt          # Dependencias de Python
 ├── docs/
 │   ├── decisiones_tecnicas.md    # Bitácora de decisiones técnicas y su justificación
-│   ├── guia_informe_prolog.md    # Guía de qué correr/capturar para el PDF de evidencia Prolog
-│   ├── manual_tecnico/           # Manual técnico (borrador en Entrega No. 1)
+│   ├── curso_intensivo_prolog.md # Curso rapido de Prolog usando el codigo real del proyecto
+│   ├── manual_tecnico/           # Manual técnico final (arquitectura, reglas, config. del RPA)
 │   ├── manual_usuario/           # Manual de usuario (paciente y administrador)
-│   ├── mockups/                  # Diseño de interfaz / wireframes navegables
+│   ├── mockups/                  # Wireframes ESTÁTICOS de la Entrega 1 (NO es la app real)
 │   ├── diagramas/                # Diagramas de arquitectura y flujo (Mermaid)
+│   ├── informe_prolog/           # Evidencia (capturas + explicación) del motor Prolog
 │   └── evaluacion_coherencia/    # Casos clínicos y reflexión crítica IA simbólica vs. moderna
 ├── src/
 │   ├── prolog/
@@ -47,10 +50,12 @@ Ver [ENUNCIADO.md](ENUNCIADO.md) para el enunciado completo del proyecto.
 │   │   ├── templates/            # Plantillas Jinja2 (basadas en docs/mockups/)
 │   │   └── static/               # CSS y JS de la aplicación real
 │   └── rpa/
-│       └── admin_rpa.py          # Automatización de carga masiva de enfermedades
+│       ├── admin_rpa.py          # RPA modo rapido: carga masiva llamando a KnowledgeStore
+│       └── gui_automation.py     # RPA modo visual: automatizacion real con PyAutoGUI
 ├── scripts/
 │   ├── demo_prolog.pl            # Corre las queries de referencia directo en swipl
-│   └── demo_pyswip.py            # Las mismas queries, pero via pyswip desde Python
+│   ├── demo_pyswip.py            # Las mismas queries, pero via pyswip desde Python
+│   └── ejecutar_rpa_gui.py       # Punto de entrada del RPA visual (para el video de evidencia)
 └── tests/                        # Pruebas automatizadas (pytest)
 ```
 
@@ -67,14 +72,30 @@ Las decisiones técnicas y su justificación se documentan en
 
 ## Estado del proyecto
 
-🚧 En desarrollo. Ya funcionan de punta a punta: el formulario de paciente contra el motor
-Prolog real (afinidad, urgencia, medicamento seguro, PDF descargable), y el panel de
-administrador (login, CRUD de enfermedades/síntomas/medicamentos/contraindicaciones,
-exportación del `.pl` y carga masiva vía RPA), reemplazando los mockups estáticos de
-`docs/mockups/` por plantillas Jinja2 que consumen las rutas Flask reales. Pendiente para la
-Entrega No. 2: automatización de la interfaz gráfica del RPA con PyAutoGUI (por ahora
-`admin_rpa.py` ejecuta la misma lógica de alta que usa el formulario manual, ver
-`docs/decisiones_tecnicas.md`), y los entregables de documentación/evaluación de coherencia.
+✅ Completo para la Entrega No. 2. Funcionan de punta a punta: el formulario de paciente
+contra el motor Prolog real (afinidad, urgencia, medicamento seguro, historial de sesión,
+PDF descargable), el panel de administrador (login, CRUD de
+enfermedades/síntomas/medicamentos/contraindicaciones, exportación del `.pl`) y el RPA de
+carga masiva de enfermedades en sus dos modos: rápido (`admin_rpa.py`, vía el botón del
+panel) y visual con PyAutoGUI (`gui_automation.py` / `scripts/ejecutar_rpa_gui.py`, para el
+video de evidencia — ver el Manual Técnico, sección "Configuración del robot RPA"). 14
+pruebas automatizadas en verde (`pytest`). Documentación completa en `docs/`: manual
+técnico, manual de usuario, evaluación de coherencia diagnóstica (3 casos clínicos
+ejecutados con datos reales + reflexión crítica) y un curso intensivo de Prolog basado en el
+código del propio proyecto.
+
+## Documentación
+
+- [Manual técnico](docs/manual_tecnico/manual_tecnico.md) — arquitectura, estructura del
+  `.pl`, justificación de reglas y configuración del robot RPA.
+- [Manual de usuario](docs/manual_usuario/manual_usuario.md) — guía paso a paso de ambos
+  módulos, errores comunes y cómo interpretar el informe.
+- [Evaluación de coherencia diagnóstica](docs/evaluacion_coherencia/evaluacion_coherencia.md) —
+  3 casos clínicos ejecutados contra la aplicación real + reflexión crítica IA simbólica vs. moderna.
+- [Curso intensivo de Prolog](docs/curso_intensivo_prolog.md) — para quien no conoce Prolog:
+  explica cada construcción del lenguaje usando el código real de `knowledge_base.pl`.
+- [Bitácora de decisiones técnicas](docs/decisiones_tecnicas.md) — el porqué de cada decisión
+  tomada durante el desarrollo.
 
 ## Instalación y ejecución
 

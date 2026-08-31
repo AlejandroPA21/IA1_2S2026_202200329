@@ -1,16 +1,3 @@
-<!--
-  INSTRUCCIONES PARA TI (borra este bloque de comentario antes de exportar el PDF):
-
-  1. Sigue docs/guia_informe_prolog.md para saber EXACTAMENTE qué correr y qué capturar.
-  2. Guarda cada captura en docs/informe_prolog/imagenes/ con el nombre de archivo que ya
-     está escrito en cada ![...](imagenes/nombre.png) de abajo. Si usas otro nombre, solo
-     edita la ruta entre paréntesis — no toques nada más.
-  3. Los bloques marcados [OPCIONAL] puedes borrarlos si no vas a incluir esa captura.
-  4. Los campos entre corchetes [ASI] los reemplazas por tu dato real (nombre, carné, fecha).
-  5. Cuando termines de pegar las imágenes, exporta a PDF (ver "Cómo exportar a PDF" al
-     final de este archivo, o en el mensaje de instrucciones que acompaña esta plantilla).
--->
-
 # MediLogic — Evidencia del motor lógico en Prolog
 
 **Curso:** Inteligencia Artificial 1 — Universidad San Carlos de Guatemala
@@ -19,9 +6,9 @@
 
 **Carné:** 202200329
 
-**Proyecto:** MediLogic — Entrega No. 1, Tarea 1
+**Proyecto:** MediLogic — Entrega No. 2, Proyecto Final
 
-**Fecha:** [21/08/2026]
+**Fecha:** 04/09/2026
 
 ---
 
@@ -87,10 +74,7 @@ Consultas verificadas con `swipl scripts/demo_prolog.pl` (y también con `pyswip
 `python scripts/demo_pyswip.py`, como evidencia de que Python se comunica correctamente con
 el motor lógico):
 
-![Salida de las 5 queries de referencia — parte 1](imagenes/06_queries_1.png)
-
-
-<!-- Si toda la salida cupo en una sola captura, borra el bloque de "parte 2" de arriba. -->
+![Salida de las 5 queries de referencia](imagenes/06_queries_1.png)
 
 | # | Query | Qué demuestra | Resultado |
 |---|---|---|---|
@@ -99,8 +83,17 @@ el motor lógico):
 | 3 | `medicamento_sugerido(hipertension, [losartan], [], Medicamento)` | El paciente es alérgico al medicamento de primera línea; el motor descarta esa opción y sugiere el siguiente candidato seguro, demostrando el nivel de contraindicación "condiciones del paciente". | `Medicamento = enalapril` |
 | 4 | `diagnosticar([dolor_cabeza-moderado, mareo-severo, dolor_abdominal-leve], D)` | Evalúa todas las enfermedades registradas y devuelve solo las que tienen al menos un síntoma coincidente, ordenadas de mayor a menor afinidad. | `[diagnostico(hipertension, 56), diagnostico(gastroenteritis_aguda, 8)]` |
 | 5 | `informe([dolor_cabeza-moderado, mareo-severo], [ibuprofeno], [], Informe)` | Consulta integral: junta afinidad + urgencia + medicamento seguro en un solo resultado. | Sugiere `losartan` (el paciente no es alérgico a él) |
+
 ---
-## 5. Evidencia de Server Corriendo
+
+## 4. Evidencia del servidor corriendo
+
+El backend Flask se levanta con `python src/backend/app.py`; al iniciar, `create_app()`
+instancia `PrologEngine`, que hace `consult/1` sobre `knowledge_base.pl` — si el archivo
+tuviera un error de sintaxis, el servidor fallaría al arrancar. Este arranque exitoso es,
+en sí mismo, evidencia adicional de que el motor lógico carga sin errores.
+
+![Servidor Flask corriendo (python src/backend/app.py)](imagenes/07.png)
 
 ---
 

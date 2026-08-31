@@ -43,7 +43,7 @@
     <div class="form-grid">
       <label class="field"><span>Nombre</span>
         <input type="text" name="nombre" style="width:100%;" placeholder="Ej. Migraña Crónica"
-               value="{{ (enfermedad_editar.nombre | etiqueta) if enfermedad_editar else '' }}" required>
+               value="{{ (enfermedad_editar.nombre | etiqueta) if enfermedad_editar else '' }}" required autofocus>
       </label>
       <label class="field"><span>Sistema del cuerpo</span>
         <select name="sistema_cuerpo" style="width:100%;">

@@ -181,6 +181,9 @@ def ejecutar_carga(
                 tipo=tipo,
                 sintomas=registro["sintomas_asociados"],
                 medicamentos_contraindicados=registro["medicamentos_contraindicados"],
+                # Campo opcional: no esta en el formato original de
+                # EjemploRPA.json, pero si en "Ejemplo Archivo RPA V2.json".
+                medicamentos_tratamiento=registro.get("tratamiento_recomendado"),
             )
             items.append(
                 ResultadoItem(

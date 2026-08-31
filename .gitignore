@@ -25,6 +25,10 @@ ENV/
 /generated_reports/
 *.log
 src/backend/instance/
+# Flask resuelve la carpeta instance/ en la raiz del repo cuando la app se
+# ejecuta con `python src/backend/app.py` (como indica el README), en vez de
+# dentro de src/backend/; se ignora en ambas ubicaciones posibles.
+/instance/
 
 # --- Herramientas y cache ---
 .pytest_cache/

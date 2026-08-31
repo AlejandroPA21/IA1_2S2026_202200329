@@ -7,6 +7,10 @@
       "mareo",
       "vision_borrosa"
     ],
+    "tratamiento_recomendado": [
+      "Enalapril",
+      "Losartan"
+    ],
     "medicamentos_contraindicados": [
       "ibuprofeno",
       "descongestivos"
@@ -20,6 +24,10 @@
       "dificultad_respiratoria",
       "silbido_pecho",
       "tos_seca"
+    ],
+    "tratamiento_recomendado": [
+      "Salbutamol",
+      "Fluticasona"
     ],
     "medicamentos_contraindicados": [
       "aspirina",
@@ -35,6 +43,10 @@
       "fatiga",
       "vision_borrosa"
     ],
+    "tratamiento_recomendado": [
+      "Metformina",
+      "Insulina"
+    ],
     "medicamentos_contraindicados": [
       "corticosteroides"
     ],
@@ -48,6 +60,10 @@
       "nauseas",
       "diarrea",
       "fiebre_leve"
+    ],
+    "tratamiento_recomendado": [
+      "Suero_oral",
+      "Racecadotrilo"
     ],
     "medicamentos_contraindicados": [
       "anti_inflamatorios_no_esteroideos"

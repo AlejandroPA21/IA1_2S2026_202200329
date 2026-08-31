@@ -1,0 +1,70 @@
+MediLogic (Sistema Experto Médico)
+│
+├── 1. MÓDULO PACIENTE (Diagnóstico y Consulta)
+│ ├── 1.1. Ingreso de Datos Básicos
+│ │ ├── Paso 1: Seleccionar síntomas principales mediante checkboxes.
+│ │ ├── Paso 2: Indicar nivel de severidad por cada síntoma seleccionado (Leve /
+Moderado / Severo).
+│ │ ├── Paso 3: Registrar alergias a medicamentos
+│ │ └── Paso 4: Registrar enfermedades crónicas preexistentes
+│ │
+│ ├── 1.2. Proceso de Inferencia Lógica (Motor Prolog)
+│ │ ├── Paso 1: Python envía los datos clínicos al archivo .pl mediante pyswip.
+│ │ ├── Paso 2: Prolog evalúa hechos, reglas y contraindicaciones.
+│ │ ├── Paso 3: Se calcula el porcentaje de afinidad ponderando la severidad (Leve=1,
+Moderado=2, Severo=3).
+│ │ └── Escenarios posibles:
+│ │ ├── Escenario A: Coincidencia alta con una enfermedad y sin contraindicaciones
+(Diagnóstico directo + Medicamento seguro).
+│ │ ├── Escenario B: Conflicto detectado (El medicamento ideal está contraindicado
+por alergia/crónica -> Prolog descarta y busca alternativa segura).
+│ │ └── Escenario C: Síntomas insuficientes o no concluyentes (Sin coincidencias
+directas o afinidad baja).
+│ │
+│ ├── 1.3. Generación de Resultados e Informes
+│ │ ├── Paso 1: Despliegue visual de enfermedades ordenadas por porcentaje de
+afinidad.
+│ │ ├── Paso 2: Visualización del nivel de urgencia sugerido ("Consulta inmediata",
+"Observación", etc.).
+│ │ ├── Paso 3: Historial local temporal de sesión activa en la interfaz.
+│ │ └── Paso 4: Opción de descarga del informe en PDF (incluye resumen,
+advertencias, medicamentos y reglas activadas).
+│ │
+├── 2. MÓDULO ADMINISTRADOR (Gestión de Base de Conocimiento Manual)
+│ ├── 2.1. Autenticación
+│ │ └── Paso 1: Ingreso de credenciales válidas de administrador.
+│ │
+│ ├── 2.2. Gestión de Entidades
+│ │ ├── Paso 1: Crear, editar o eliminar enfermedades, síntomas o medicamentos.
+│ │ └── Paso 2: Definir relaciones de contraindicación y clasificación por sistema
+corporal.
+│ │
+│ └── 2.3. Sincronización del Archivo Lógico
+│ ├── Paso 1: El backend procesa los cambios hechos en la interfaz.
+│ ├── Paso 2: Sobrescribe físicamente el archivo `.pl` en el disco.
+│ └── Paso 3: Ejecuta la recarga dinámica en el motor Prolog (`consult/1`) para
+actualizar la memoria sin reiniciar el sistema.
+│
+└── 3. MÓDULO RPA Y AUTOMATIZACIÓN (Carga Masiva)
+├── 3.1. Recepción y Estructura del Archivo de Entrada (.txt)
+│ ├── *Definición obligatoria para pruebas:* El archivo debe tener una estructura
+tabular o delimitada clara (JSON plano con campos: `Nombre, Descripcion,
+SintomasAsociados, MedicamentosContraindicados, SistemaCuerpo`).
+│ └── Paso 1: El administrador selecciona el archivo `.txt` estructurado desde la
+interfaz.
+│
+├── 3.2. Ejecución del Robot (Python + PyAutoGUI / TagUI)
+│ ├── Paso 1: El RPA lee iterativamente el archivo plano.
+│ ├── Paso 2: Simula el llenado automatizado de los formularios del panel de
+administrador o inyecta directamente los datos en la base lógica.
+│ └── Escenarios posibles en pruebas:
+│ ├── Escenario A (Éxito): El archivo cumple con el formato exacto, el robot
+completa la carga masiva y actualiza el `.pl`.
+│ └── Escenario B (Fallo de Formato): El archivo tiene campos faltantes o estructura
+incorrecta, el robot se detiene o lanza una excepción controlada.
+│
+└── 3.3. Generación de Bitácora (Archivo Plano)
+├── Paso 1: El robot genera un archivo de salida (ej. `bitacora_rpa.txt`) detallando qué
+elementos fueron agregados con éxito y la fecha/hora.
+└── Paso 2: El administrador valida el archivo de salida como comprobante de la
+ejecución.

@@ -7,6 +7,7 @@ pyswip>=0.3.2
 
 # --- RPA (automatizacion del modulo administrador) ---
 PyAutoGUI>=0.9.54
+pyperclip>=1.8  # ya viene con PyAutoGUI, pero se declara: gui_automation.py la usa directo
 
 # --- Generacion de reportes en PDF ---
 reportlab>=4.0

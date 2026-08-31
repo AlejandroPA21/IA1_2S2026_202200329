@@ -12,9 +12,18 @@
     <p style="font-size:0.8rem;color:var(--color-text-muted);">
       Campos esperados: nombre_enfermedad, descripcion, sintomas_asociados, medicamentos_contraindicados, sistema_cuerpo.
       El "tipo" (crónico, viral, bacteriano, inmunológico) se infiere automáticamente a partir de la descripción.
+      Campo opcional: tratamiento_recomendado (lista de medicamentos que tratan la enfermedad —
+      ver <code>Ejemplo Archivo RPA V2.json</code>); si se incluye, también se registra
+      automáticamente esa relación.
     </p>
     <button type="submit" class="btn btn-primary" style="margin-top:8px;">▶ Ejecutar RPA de carga</button>
   </form>
+  <p style="font-size:0.8rem;color:var(--color-text-muted);margin-top:10px;margin-bottom:0;">
+    Este botón ejecuta el modo rápido del RPA (llama directamente a la capa de persistencia).
+    Para la automatización visual con PyAutoGUI —la que se graba en el video de evidencia—
+    corre <code>python scripts/ejecutar_rpa_gui.py</code> desde otra terminal; ver el Manual
+    Técnico, sección "Configuración del robot RPA".
+  </p>
 </div>
 
 {% if reporte %}

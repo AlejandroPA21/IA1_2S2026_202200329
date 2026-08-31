@@ -15,10 +15,10 @@
 %   EnfermedadesCronicas  -> lista de atomos de enfermedades preexistentes,
 %                            ej. [hipertension]
 %
-% Este es un entregable inicial (Entrega No. 1 - Tarea 1): incluye hechos
-% basicos y reglas ya funcionales para las 4 enfermedades de ejemplo de
-% EjemploRPA.json. El catalogo completo, el CRUD administrativo y las
-% pruebas exhaustivas se amplian en la Entrega No. 2.
+% Catalogo base: las 4 enfermedades de ejemplo de EjemploRPA.json. El
+% administrador puede ampliarlo en caliente desde el panel web (o con el
+% RPA de carga masiva) sin tocar este archivo a mano; ver
+% docs/decisiones_tecnicas.md para el detalle del mecanismo de reescritura.
 % =============================================================================
 
 

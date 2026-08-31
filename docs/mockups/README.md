@@ -1,15 +1,17 @@
 # Diseño de interfaz — MediLogic
 
+> 🛑 **Esto NO es el frontend de la aplicación.** Son 7 páginas HTML estáticas, sin backend
+> ni lógica real, que se conservan como evidencia de la fase de diseño de la Entrega No. 1.
+> El frontend real y funcional vive en `src/backend/templates/` + `src/backend/static/` y se
+> ejecuta con `python src/backend/app.py` — es una carpeta completamente aparte, Flask nunca
+> lee nada de aquí. Cada archivo de este directorio además muestra un aviso igual de visible
+> apenas se abre en el navegador.
+
 Este directorio contiene el diseño de interfaz (wireframes) del entregable de la Entrega
 No. 1 — Tarea 1. Se implementaron como **HTML/CSS estático navegable** (no como imágenes)
 para que puedan abrirse directamente en el navegador y, sobre todo, para que sirvieran de
 base real a las plantillas Jinja2 del backend Flask — la maquetación y la paleta de colores
 se reutilizaron tal cual en `src/backend/templates/` y `src/backend/static/css/styles.css`.
-
-> ✅ **Estado:** estos 7 mockups ya fueron implementados como aplicación real (formularios
-> funcionales, autenticación, CRUD contra `knowledge_base.pl`, PDF, RPA). Se conservan aquí
-> como evidencia de la fase de diseño y como referencia visual; la interfaz activa del
-> proyecto es la que corre con `python src/backend/app.py` (ver `README.md`).
 
 Ningún archivo aquí tiene lógica real: los formularios no envían datos y los botones son
 enlaces entre pantallas para poder recorrer el flujo completo. Los datos mostrados (síntomas,

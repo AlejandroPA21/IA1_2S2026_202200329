@@ -192,12 +192,25 @@ class KnowledgeStore:
         self._guardar(estado)
 
     def actualizar_tratamientos(self, medicamento: str, enfermedades: list[str]) -> None:
-        """Define para que enfermedades sirve `medicamento` (medicamento_para/2)."""
+        """Define para que enfermedades sirve `medicamento` (medicamento_para/2).
+        Reemplaza la lista completa de enfermedades que trata ese medicamento
+        (es el metodo que usa el formulario "Trata las enfermedades")."""
         estado = self.cargar_estado()
         estado.medicamento_para = [
             par for par in estado.medicamento_para if par[0] != medicamento
         ]
         estado.medicamento_para += [(medicamento, e) for e in enfermedades]
+        self._guardar(estado)
+
+    def agregar_tratamiento(self, medicamento: str, enfermedad: str) -> None:
+        """Registra que `medicamento` trata `enfermedad`, SIN afectar los
+        demas tratamientos ya registrados para ese medicamento (a diferencia
+        de `actualizar_tratamientos`, que reemplaza la lista completa) — la
+        usa el RPA para ir agregando tratamientos enfermedad por enfermedad
+        sin pisar los que ya existan."""
+        estado = self.cargar_estado()
+        if (medicamento, enfermedad) not in estado.medicamento_para:
+            estado.medicamento_para.append((medicamento, enfermedad))
         self._guardar(estado)
 
     # ------------------------------------------------------------------
@@ -316,14 +329,21 @@ class KnowledgeStore:
         tipo: str,
         sintomas: list[str],
         medicamentos_contraindicados: list[str],
+        medicamentos_tratamiento: list[str] | None = None,
     ) -> str:
         """Alta de una enfermedad sin exigir unicidad estricta: si ya existe,
         la actualiza (idempotente), tal como conviene a una carga automatica
-        que puede reintentarse."""
+        que puede reintentarse.
+
+        `medicamentos_tratamiento` es opcional -no todos los formatos de
+        origen del RPA lo incluyen (ver EjemploRPA.json vs. "Ejemplo Archivo
+        RPA V2.json")-: si se indica, ademas registra que esos medicamentos
+        tratan la enfermedad (`medicamento_para/2`), dando de alta en el
+        catalogo general cualquier medicamento nuevo que aparezca ahi."""
         atomo = slugify(nombre)
         estado = self.cargar_estado()
         nombre_original = atomo if atomo in estado.nombres_enfermedades() else None
-        return self.guardar_enfermedad(
+        resultado = self.guardar_enfermedad(
             nombre=nombre,
             descripcion=descripcion,
             sistema_cuerpo=sistema_cuerpo,
@@ -334,6 +354,16 @@ class KnowledgeStore:
             ],
             nombre_original=nombre_original,
         )
+
+        for medicamento in medicamentos_tratamiento or []:
+            atomo_medicamento = slugify(medicamento)
+            try:
+                self.crear_medicamento(atomo_medicamento)
+            except ValidationError:
+                pass  # ya existe en el catalogo, no hace falta crearlo de nuevo
+            self.agregar_tratamiento(atomo_medicamento, resultado)
+
+        return resultado
 
     # ------------------------------------------------------------------
     # Regeneracion del archivo .pl (solo secciones de hechos)

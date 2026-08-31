@@ -29,7 +29,7 @@
   <h3>Nuevo síntoma</h3>
   <form method="post" action="{{ url_for('admin.sintomas_crear') }}" style="display:flex;gap:10px;align-items:flex-end;">
     <label class="field" style="flex:1;margin-bottom:0;"><span>Nombre</span>
-      <input type="text" name="nombre" style="width:100%;" placeholder="Ej. Dolor de garganta" required>
+      <input type="text" name="nombre" style="width:100%;" placeholder="Ej. Dolor de garganta" required autofocus>
     </label>
     <button type="submit" class="btn btn-primary">Agregar</button>
   </form>
