@@ -3,8 +3,7 @@
 **Curso:** Inteligencia Artificial 1 — Universidad San Carlos de Guatemala
 **Proyecto:** MediLogic — Entrega No. 2, Proyecto Final
 
-> Antes de exportar a PDF: reemplaza cada `[CAPTURA: ...]` por una captura real de tu
-> pantalla en ese punto del flujo (con `python src/backend/app.py` corriendo).
+
 
 MediLogic es una herramienta de **apoyo diagnóstico preliminar**. No sustituye la consulta
 médica profesional: ante síntomas de urgencia, acude siempre a un servicio de salud.
@@ -15,7 +14,7 @@ médica profesional: ante síntomas de urgencia, acude siempre a un servicio de 
 2. `pip install -r requirements.txt` (idealmente dentro de un entorno virtual `.venv`).
 3. `python src/backend/app.py` y abre `http://127.0.0.1:5000/` en tu navegador.
 
-[CAPTURA: pantalla de inicio, con los dos botones "Soy paciente" y "Acceso administrador"]
+![Pantalla de inicio, con los dos botones "Soy paciente" y "Acceso administrador"](./assets/01.png)
 
 ## 2. Módulo de Paciente
 
@@ -34,7 +33,7 @@ diagnóstico"**.
    contra esas condiciones, no solo contra la enfermedad diagnosticada.
 4. Presiona **"Solicitar análisis"**.
 
-[CAPTURA: formulario de paciente con algunos síntomas y severidades marcadas]
+![Formulario de paciente con algunos síntomas y severidades marcadas](./assets/02.png)
 
 ### 2.2 Cómo interpretar el informe de resultados
 
@@ -54,7 +53,7 @@ Por cada enfermedad compatible con tus síntomas verás una tarjeta con:
 
 Los diagnósticos aparecen ordenados de mayor a menor afinidad.
 
-[CAPTURA: informe de resultados con al menos un diagnóstico y sus reglas activadas]
+![Informe de resultados con al menos un diagnóstico y sus reglas activadas](./assets/03.png)
 
 ### 2.3 Historial de la sesión
 
@@ -74,7 +73,7 @@ Accede desde **"Acceso administrador"** en el inicio. Credenciales por defecto: 
 `admin`, contraseña `medilogic2026` (configurables con las variables de entorno `ADMIN_USER`
 / `ADMIN_PASSWORD` — ver `README.md`).
 
-[CAPTURA: pantalla de login del administrador]
+![Pantalla de login del administrador](./assets/04.png)
 
 ### 3.1 Panel general
 
@@ -91,7 +90,7 @@ precarga con los datos existentes.
 > **Antes de crear una enfermedad**, registra primero sus síntomas y medicamentos en las
 > secciones correspondientes (los checkboxes solo muestran lo que ya existe en el catálogo).
 
-[CAPTURA: formulario "Nueva enfermedad" con síntomas y medicamentos marcados]
+![Formulario "Nueva enfermedad" con síntomas y medicamentos marcados](./assets/05.png)
 
 ### 3.3 Gestión de síntomas y medicamentos
 
@@ -123,7 +122,7 @@ En **RPA — Carga masiva** puedes subir un archivo JSON (formato de `EjemploRPA
 "tipo" por palabras clave en la descripción. Al terminar, muestra un resumen
 (creadas/actualizadas/errores) y genera una bitácora en texto plano descargable.
 
-[CAPTURA: resultado de una ejecución del RPA con su bitácora]
+![Resultado de una ejecución del RPA con su bitácora](./assets/06.png)
 
 > **Nota:** este botón es el modo rápido del RPA (ver detalle técnico en el Manual Técnico,
 > sección "Configuración del robot RPA"). No requiere instalación adicional ni es necesario

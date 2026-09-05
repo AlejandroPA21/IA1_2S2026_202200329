@@ -32,18 +32,18 @@
 % 7 en adelante) nunca se tocan de forma automatica.
 
 % === AUTO:SINTOMAS START ===
-sintoma(dolor_cabeza).
-sintoma(mareo).
-sintoma(vision_borrosa).
+sintoma(diarrea).
 sintoma(dificultad_respiratoria).
+sintoma(dolor_abdominal).
+sintoma(dolor_cabeza).
+sintoma(fatiga).
+sintoma(fiebre_leve).
+sintoma(mareo).
+sintoma(nauseas).
+sintoma(sed_excesiva).
 sintoma(silbido_pecho).
 sintoma(tos_seca).
-sintoma(sed_excesiva).
-sintoma(fatiga).
-sintoma(dolor_abdominal).
-sintoma(nauseas).
-sintoma(diarrea).
-sintoma(fiebre_leve).
+sintoma(vision_borrosa).
 % === AUTO:SINTOMAS END ===
 
 
@@ -57,18 +57,18 @@ sintoma(fiebre_leve).
 % medicamentos registrados previamente por el administrador").
 
 % === AUTO:MEDICAMENTOS START ===
-medicamento(losartan).
-medicamento(enalapril).
-medicamento(salbutamol).
-medicamento(metformina).
-medicamento(suero_oral).
-medicamento(loperamida).
-medicamento(ibuprofeno).
+medicamento(anti_inflamatorios_no_esteroideos).
 medicamento(aspirina).
+medicamento(betabloqueantes).
 medicamento(corticosteroides).
 medicamento(descongestivos).
-medicamento(betabloqueantes).
-medicamento(anti_inflamatorios_no_esteroideos).
+medicamento(enalapril).
+medicamento(ibuprofeno).
+medicamento(loperamida).
+medicamento(losartan).
+medicamento(metformina).
+medicamento(salbutamol).
+medicamento(suero_oral).
 % === AUTO:MEDICAMENTOS END ===
 
 
@@ -79,10 +79,6 @@ medicamento(anti_inflamatorios_no_esteroideos).
 % Datos de ejemplo tomados de EjemploRPA.json.
 
 % === AUTO:ENFERMEDADES START ===
-enfermedad(hipertension,
-    'Presion arterial alta cronica que afecta el sistema circulatorio.',
-    circulatorio, cronico).
-
 enfermedad(asma_bronquial,
     'Enfermedad respiratoria cronica caracterizada por la inflamacion de las vias aereas.',
     respiratorio, cronico).
@@ -94,6 +90,11 @@ enfermedad(diabetes_tipo_2,
 enfermedad(gastroenteritis_aguda,
     'Inflamacion de la membrana interna del intestino causada por infecciones.',
     digestivo, viral).
+
+enfermedad(hipertension,
+    'Presion arterial alta cronica que afecta el sistema circulatorio.',
+    circulatorio, cronico).
+
 % === AUTO:ENFERMEDADES END ===
 
 
@@ -102,22 +103,19 @@ enfermedad(gastroenteritis_aguda,
 % =============================================================================
 
 % === AUTO:ENFERMEDAD_SINTOMA START ===
-enfermedad_sintoma(hipertension, dolor_cabeza).
-enfermedad_sintoma(hipertension, mareo).
-enfermedad_sintoma(hipertension, vision_borrosa).
-
 enfermedad_sintoma(asma_bronquial, dificultad_respiratoria).
 enfermedad_sintoma(asma_bronquial, silbido_pecho).
 enfermedad_sintoma(asma_bronquial, tos_seca).
-
-enfermedad_sintoma(diabetes_tipo_2, sed_excesiva).
 enfermedad_sintoma(diabetes_tipo_2, fatiga).
+enfermedad_sintoma(diabetes_tipo_2, sed_excesiva).
 enfermedad_sintoma(diabetes_tipo_2, vision_borrosa).
-
-enfermedad_sintoma(gastroenteritis_aguda, dolor_abdominal).
-enfermedad_sintoma(gastroenteritis_aguda, nauseas).
 enfermedad_sintoma(gastroenteritis_aguda, diarrea).
+enfermedad_sintoma(gastroenteritis_aguda, dolor_abdominal).
 enfermedad_sintoma(gastroenteritis_aguda, fiebre_leve).
+enfermedad_sintoma(gastroenteritis_aguda, nauseas).
+enfermedad_sintoma(hipertension, dolor_cabeza).
+enfermedad_sintoma(hipertension, mareo).
+enfermedad_sintoma(hipertension, vision_borrosa).
 % === AUTO:ENFERMEDAD_SINTOMA END ===
 
 
@@ -129,15 +127,12 @@ enfermedad_sintoma(gastroenteritis_aguda, fiebre_leve).
 % medicamento_sugerido/4 (seccion 9) prueba el siguiente automaticamente.
 
 % === AUTO:MEDICAMENTO_PARA START ===
-medicamento_para(losartan, hipertension).
 medicamento_para(enalapril, hipertension).
-
-medicamento_para(salbutamol, asma_bronquial).
-
-medicamento_para(metformina, diabetes_tipo_2).
-
-medicamento_para(suero_oral, gastroenteritis_aguda).
 medicamento_para(loperamida, gastroenteritis_aguda).
+medicamento_para(losartan, hipertension).
+medicamento_para(metformina, diabetes_tipo_2).
+medicamento_para(salbutamol, asma_bronquial).
+medicamento_para(suero_oral, gastroenteritis_aguda).
 % === AUTO:MEDICAMENTO_PARA END ===
 
 
@@ -156,15 +151,12 @@ medicamento_para(loperamida, gastroenteritis_aguda).
 %     de este mismo catalogo (seccion 3).
 
 % === AUTO:CONTRAINDICACIONES START ===
-contraindicacion_enfermedad(ibuprofeno, hipertension).
-contraindicacion_enfermedad(descongestivos, hipertension).
-
+contraindicacion_enfermedad(anti_inflamatorios_no_esteroideos, gastroenteritis_aguda).
 contraindicacion_enfermedad(aspirina, asma_bronquial).
 contraindicacion_enfermedad(betabloqueantes, asma_bronquial).
-
 contraindicacion_enfermedad(corticosteroides, diabetes_tipo_2).
-
-contraindicacion_enfermedad(anti_inflamatorios_no_esteroideos, gastroenteritis_aguda).
+contraindicacion_enfermedad(descongestivos, hipertension).
+contraindicacion_enfermedad(ibuprofeno, hipertension).
 % === AUTO:CONTRAINDICACIONES END ===
 
 
