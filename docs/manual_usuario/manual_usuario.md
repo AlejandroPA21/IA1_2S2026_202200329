@@ -143,7 +143,11 @@ uso normal del sistema, pero así se ejecuta:
 
 Ver el Manual Técnico para el detalle completo de cómo funciona y qué revisar antes de grabar.
 
-## 4. Errores comunes y advertencias
+## 4. Video de carga con RPA
+   <video src="./assets/RPA.mp4" width="100%" controls></video>
+
+
+## 5. Errores comunes y advertencias
 
 | Situación | Causa | Qué hacer |
 |---|---|---|
